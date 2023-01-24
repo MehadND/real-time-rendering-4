@@ -1,5 +1,2 @@
 ﻿  basicapplication.cpp
-C:\Users\A00273758\Documents\GitHub\real-time-rendering\gt41samples (1)\gt41samples\basicapplication\basicapplication.cpp(16,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\A00273758\Documents\GitHub\real-time-rendering\gt41samples (1)\gt41samples\basicapplication\basicapplication.cpp(17,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\A00273758\Documents\GitHub\real-time-rendering\gt41samples (1)\gt41samples\basicapplication\basicapplication.cpp(18,13): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
   basicapplication.vcxproj -> C:\Users\A00273758\Documents\GitHub\real-time-rendering\gt41samples (1)\gt41samples\basicapplication\Debug\basicapplication.exe

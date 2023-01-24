@@ -13,10 +13,6 @@ static void renderSceneCallBack()
 
 static void processNormalKeys(unsigned char key, int x, int y) 
 {
-    float r = rand() % 1;
-    float g = rand() % 1;
-    float b = rand() % 1;
-
 	if (key == 'a')
 	{
 		 glClearColor(0.0f, 1.0f, 0.0f, 0.0f); 
