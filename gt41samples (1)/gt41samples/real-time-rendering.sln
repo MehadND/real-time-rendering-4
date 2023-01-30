@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "firsttriangle2", "firsttria
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "project", "Project\project.vcxproj", "{85575F77-D644-4756-B023-C5E4596D4A94}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "primitiveTopolgiesTask", "primitiveTopolgiesTask\primitiveTopolgiesTask.vcxproj", "{870A429B-9AE2-4ACB-8332-4D3EE39BFCC5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{85575F77-D644-4756-B023-C5E4596D4A94}.Release|x64.Build.0 = Release|Win32
 		{85575F77-D644-4756-B023-C5E4596D4A94}.Release|x86.ActiveCfg = Release|Win32
 		{85575F77-D644-4756-B023-C5E4596D4A94}.Release|x86.Build.0 = Release|Win32
+		{870A429B-9AE2-4ACB-8332-4D3EE39BFCC5}.Debug|x64.ActiveCfg = Debug|Win32
+		{870A429B-9AE2-4ACB-8332-4D3EE39BFCC5}.Debug|x64.Build.0 = Debug|Win32
+		{870A429B-9AE2-4ACB-8332-4D3EE39BFCC5}.Debug|x86.ActiveCfg = Debug|Win32
+		{870A429B-9AE2-4ACB-8332-4D3EE39BFCC5}.Debug|x86.Build.0 = Debug|Win32
+		{870A429B-9AE2-4ACB-8332-4D3EE39BFCC5}.Release|x64.ActiveCfg = Release|Win32
+		{870A429B-9AE2-4ACB-8332-4D3EE39BFCC5}.Release|x64.Build.0 = Release|Win32
+		{870A429B-9AE2-4ACB-8332-4D3EE39BFCC5}.Release|x86.ActiveCfg = Release|Win32
+		{870A429B-9AE2-4ACB-8332-4D3EE39BFCC5}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

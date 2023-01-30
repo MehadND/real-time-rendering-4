@@ -26,7 +26,7 @@ public:
 	void render();
 };
 
-// statics methods that don't belong to the tusRenderobject class
+
 static void renderSceneCallBack();
 static void initializeGlutCallbacks();
 static void createTusRenderObj();

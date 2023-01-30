@@ -2,6 +2,7 @@
 
 tusRenderObject obj;
 
+
 tusRenderObject::tusRenderObject()
 {
 
@@ -36,7 +37,6 @@ static void renderSceneCallBack()
 	// add for loop here to iterate all the vbo/tusMeshObjs
 	obj.render();
 
-
 	glutSwapBuffers();
 }
 
@@ -47,13 +47,15 @@ static void initializeGlutCallbacks()
 
 static void createTusRenderObj()
 {
-	obj = tusRenderObject(GL_LINE);
+	obj = tusRenderObject(GL_LINE_STRIP);
+
 	//create some vertices and put it in our VBO
-	const int numVerts = 2;
+	const int numVerts = 3;
 	vec3 vertices1[numVerts];
 
 	vertices1[0] = vec3(0.0f, 0.0f, 0.0f);
-	vertices1[1] = vec3(0.5f, 0.0f, 0.0f);
+	vertices1[1] = vec3(0.2f, 0.1f, 0.0f);
+	vertices1[2] = vec3(0.5f, 0.0f, 0.0f);
 		
 	obj.createBuffer(vertices1, numVerts);
 }
