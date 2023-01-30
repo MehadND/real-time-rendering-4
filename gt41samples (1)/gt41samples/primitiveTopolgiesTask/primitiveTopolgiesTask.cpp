@@ -18,6 +18,12 @@ tusRenderObject triangles_strip;
 // GL_TRIANGLE_FAN 
 tusRenderObject triangles_fan;
 
+// custom shape
+tusRenderObject customShape;
+
+// my name
+tusRenderObject myName;
+
 
 tusRenderObject::tusRenderObject()
 {
@@ -42,6 +48,8 @@ void tusRenderObject::render()
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glPolygonMode(GL_FRONT, GL_LINE);
+	glPolygonMode(GL_BACK, GL_LINE);
 	glDrawArrays(mode, 0, numOfVertices);
 	glDisableVertexAttribArray(0);
 }
@@ -57,6 +65,8 @@ static void renderSceneCallBack()
 	triangles.render();
 	triangles_strip.render();
 	triangles_fan.render();
+	customShape.render();
+	myName.render();
 
 	glutSwapBuffers();
 }
@@ -120,6 +130,30 @@ static void createTusRenderObj()
 	vert_triangles_fan[2] = vec3(0.2f, 0.5f, 0.0f);
 
 	triangles_fan.createBuffer(vert_triangles_fan, numVerts);
+
+	// better GL_TRIANGLE_FAN example
+	const int numVertices = 6;
+	customShape = tusRenderObject(GL_TRIANGLE_FAN);
+	vec3 vert_customShape[numVertices];
+	vert_customShape[0] = vec3(-0.1f, -0.5f, 0.0f);
+	vert_customShape[1] = vec3(-0.5f, -0.5f, 0.0f);
+	vert_customShape[2] = vec3(-0.4f, -0.4f, 0.0f);
+	vert_customShape[3] = vec3(-0.2f, -0.3f, 0.0f);
+	vert_customShape[4] = vec3(0.0f, -0.3f, 0.0f);
+	vert_customShape[5] = vec3(0.2f, -0.5f, 0.0f);
+
+	customShape.createBuffer(vert_customShape, numVertices);
+
+	const int nameVertices = 5;
+	myName = tusRenderObject(GL_LINE_STRIP);
+	vec3 vert_myName[nameVertices];
+	vert_myName[0] = vec3(0.5f, -0.5f, 0.0f);
+	vert_myName[1] = vec3(0.5f, 0.0f, 0.0f);
+	vert_myName[2] = vec3(0.6f, -0.4f, 0.0f);
+	vert_myName[3] = vec3(0.7f, 0.0f, 0.0f);
+	vert_myName[4] = vec3(0.7f, -0.5f, 0.0f);
+
+	myName.createBuffer(vert_myName, nameVertices);
 }
 
 int main(int argc, char** argv)
@@ -128,7 +162,7 @@ int main(int argc, char** argv)
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowSize(1280, 768);
 	glutInitWindowPosition(100, 100);
-	glutCreateWindow("Basic Triangle 2 Application");
+	glutCreateWindow("Primitive Topologies Application (Wireframe)");
 
 	initializeGlutCallbacks();
 
