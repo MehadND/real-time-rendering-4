@@ -58,8 +58,8 @@ static void initializeGlutCallbacks()
 
 static void createVertexBuffers()
 {
-	// Create some vertices to put in our VBO.
-	vec3 vertices[NUMVERTS];
+    // Create some vertices to put in our VBO.
+    vec3 vertices[NUMVERTS];
     vertices[0] = vec3(-0.5f, -0.5f, 0.0f);
     vertices[1] = vec3(0.0f, 0.0f, 0.0f);
     vertices[2] = vec3(-0.5f, 0.5f, 0.0f);
@@ -73,10 +73,10 @@ static void createVertexBuffers()
     vericesB[0] = vec3(0.5f, -0.5f, 0.0f);
     vericesB[1] = vec3(0.5f, 0.0f, 0.0f);
     vericesB[2] = vec3(0.5f, 0.5f, 0.0f);
-    
- 	glGenBuffers(1, &VBO1);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO1);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * NUMVERTS1, vericesA, GL_STATIC_DRAW);
+
+    glGenBuffers(1, &VBO1);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO1);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * NUMVERTS1, vericesA, GL_STATIC_DRAW);
 
     glGenBuffers(1, &VBO2);
     glBindBuffer(GL_ARRAY_BUFFER, VBO2);
@@ -87,7 +87,7 @@ static void createVertexBuffers()
 int main(int argc, char** argv)
 {
     glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGBA);
+    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
     glutInitWindowSize(1024, 768);
     glutInitWindowPosition(100, 100);
     glutCreateWindow("Basic Triangle Application");
@@ -96,18 +96,18 @@ int main(int argc, char** argv)
 
     // Must be done after glut is initialized!
     GLenum res = glewInit();
-    if (res != GLEW_OK) 
+    if (res != GLEW_OK)
     {
-		cerr<<"Error: "<<glewGetErrorString(res)<<"\n";
-		return 1;
+        cerr << "Error: " << glewGetErrorString(res) << "\n";
+        return 1;
     }
 
-    glClearColor(0.0f, 0.0f, 0.0f, 0.0f); 
+    glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-	// Create a vertex buffer
-	createVertexBuffers();
+    // Create a vertex buffer
+    createVertexBuffers();
 
     glutMainLoop();
-    
+
     return 0;
 }
