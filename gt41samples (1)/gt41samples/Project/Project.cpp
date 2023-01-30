@@ -15,10 +15,10 @@ vec3 verticesB[totalVertices];
 
 class tusMeshObj
 {
+private:
 	GLuint vbo; // global vertex buffer object
-	int numOfVertices; // max number of vertices
+	GLuint numOfVertices; // max number of vertices
 	GLuint mode;
-
 
 public:
 	tusMeshObj(GLuint drawMode)
@@ -52,23 +52,6 @@ static void renderSceneCallBack()
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	// add for loop here to iterate all the vbo/tusMeshObjs
-	verticesA[0] = vec3(0.0f, 0.0f, 0.0f);
-	verticesA[1] = vec3(-0.5f, 0.0f, 0.0f);
-	verticesA[2] = vec3(-0.5f, 0.5f, 0.0f);
-
-	// buffer
-	tusMeshObj lines = tusMeshObj(GL_LINES);
-	lines.createBuffer(verticesA, totalVertices);
-	lines.draw();
-
-	verticesB[0] = vec3(0.0f, 0.0f, 0.0f);
-	verticesB[1] = vec3(0.5f, 0.0f, 0.0f);
-	verticesB[2] = vec3(0.5f, 0.5f, 0.0f);
-
-	tusMeshObj lines_strip = tusMeshObj(GL_LINE_STRIP);
-	lines_strip.createBuffer(verticesB, totalVertices);
-	lines_strip.draw();
-
 
 	glutSwapBuffers();
 }

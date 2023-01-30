@@ -9,6 +9,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "firsttriangle", "firsttrian
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "firsttriangle2", "firsttriangle2\firsttriangle2.vcxproj", "{CB44512C-9975-49EE-9A31-C2AB3B103FA0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "project", "Project\project.vcxproj", "{85575F77-D644-4756-B023-C5E4596D4A94}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -41,6 +43,14 @@ Global
 		{CB44512C-9975-49EE-9A31-C2AB3B103FA0}.Release|x64.Build.0 = Release|Win32
 		{CB44512C-9975-49EE-9A31-C2AB3B103FA0}.Release|x86.ActiveCfg = Release|Win32
 		{CB44512C-9975-49EE-9A31-C2AB3B103FA0}.Release|x86.Build.0 = Release|Win32
+		{85575F77-D644-4756-B023-C5E4596D4A94}.Debug|x64.ActiveCfg = Debug|Win32
+		{85575F77-D644-4756-B023-C5E4596D4A94}.Debug|x64.Build.0 = Debug|Win32
+		{85575F77-D644-4756-B023-C5E4596D4A94}.Debug|x86.ActiveCfg = Debug|Win32
+		{85575F77-D644-4756-B023-C5E4596D4A94}.Debug|x86.Build.0 = Debug|Win32
+		{85575F77-D644-4756-B023-C5E4596D4A94}.Release|x64.ActiveCfg = Release|Win32
+		{85575F77-D644-4756-B023-C5E4596D4A94}.Release|x64.Build.0 = Release|Win32
+		{85575F77-D644-4756-B023-C5E4596D4A94}.Release|x86.ActiveCfg = Release|Win32
+		{85575F77-D644-4756-B023-C5E4596D4A94}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
