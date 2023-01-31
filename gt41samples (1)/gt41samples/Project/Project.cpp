@@ -6,9 +6,6 @@
 using namespace std;
 using namespace glm;
 
-/*
-* TODO: Check if creating variables like this is good idea or not??????
-*/
 const int totalVertices = 3;
 vec3 verticesA[totalVertices];
 vec3 verticesB[totalVertices];

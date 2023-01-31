@@ -11,11 +11,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="firstshaders.cpp" />
     <ClCompile Include="myShader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fragmentshader.glsl" />
+    <None Include="freeglut.dll" />
+    <None Include="glew32.dll" />
     <None Include="vertexshader.glsl" />
   </ItemGroup>
   <ItemGroup>
