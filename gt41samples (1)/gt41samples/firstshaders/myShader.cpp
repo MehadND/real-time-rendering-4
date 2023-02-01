@@ -2,6 +2,8 @@
 
 myShader shader1;
 myShader shader2;
+myShader shader3;
+myShader shader4;
 
 static void renderSceneCallBack()
 {
@@ -10,6 +12,8 @@ static void renderSceneCallBack()
 	// add for loop here to iterate all the vbo/tusMeshObjs...
 	shader1.render();
 	shader2.render();
+	shader3.render();
+	shader4.render();
 
 	glutSwapBuffers();
 }
@@ -33,11 +37,27 @@ static void createmyShaderObj()
 
 	shader2 = myShader(GL_TRIANGLES);
 	vec3 vert_shader2[numVerts];
-	vert_shader2[0] = vec3(0.2f, 0.0f, 0.0f);
-	vert_shader2[1] = vec3(0.7f, 0.0f, 0.0f);
-	vert_shader2[2] = vec3(0.7f, 0.5f, 0.0f);
+	vert_shader2[0] = vec3(0.1f, 0.0f, 0.0f);
+	vert_shader2[1] = vec3(0.6f, 0.0f, 0.0f);
+	vert_shader2[2] = vec3(0.1f, 0.5f, 0.0f);
 
 	shader2.createVertexBuffer(vert_shader2, numVerts);
+
+	shader3 = myShader(GL_TRIANGLES);
+	vec3 vert_shader3[numVerts];
+	vert_shader3[0] = vec3(-0.5f, -0.1f, 0.0f);
+	vert_shader3[1] = vec3(0.0f, -0.1f, 0.0f);
+	vert_shader3[2] = vec3(0.0f, -0.6f, 0.0f);
+
+	shader3.createVertexBuffer(vert_shader3, numVerts);
+
+	shader4 = myShader(GL_TRIANGLES);
+	vec3 vert_shader4[numVerts];
+	vert_shader4[0] = vec3(0.1f, -0.1f, 0.0f);
+	vert_shader4[1] = vec3(0.6f, -0.1f, 0.0f);
+	vert_shader4[2] = vec3(0.1f, -0.6f, 0.0f);
+
+	shader4.createVertexBuffer(vert_shader4, numVerts);
 }
 
 myShader::myShader() {}
@@ -114,6 +134,7 @@ void myShader::buildShaders()
 	string FS = shader1.readFileToString("fragmentShader.glsl");
 
 	// TODO: What does this VS.c_str() mean?
+	// TODO: Does this mean we only have to build a shader using one object? What are the pros and cons of this?
 	shader1.addShader(shaderProgram, VS.c_str(), GL_VERTEX_SHADER);
 	shader1.addShader(shaderProgram, FS.c_str(), GL_FRAGMENT_SHADER);
 
@@ -171,7 +192,7 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
-	shader1.buildShaders();
+	shader1.buildShaders();	// TODO: Why not build all the shaders? Also what will happen if we only build using shader2 or shader3? Also what happens if we build more than one shaders?
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
