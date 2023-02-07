@@ -1,3 +1,8 @@
+/*
+* ADD COMMENTS
+* ADD CODE FOR DELETING OR DETACHING SHADERS
+*/
+
 #include "ShaderTechnique.h"
 #include "GameObject.h"
 
@@ -8,8 +13,10 @@ static void renderSceneCallBack()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	// add for loop here to iterate all the vbo/tusMeshObjs...
+	gameObject1.shader->buildShader("vertexShader.glsl", "fragmentShader.glsl");
 	gameObject1.render();
+
+	gameObject2.shader->buildShader("vertexshader2.glsl", "fragmentshader2.glsl");
 	gameObject2.render();
 
 	glutSwapBuffers();
@@ -49,6 +56,7 @@ int main(int argc, char** argv)
 	glutInitWindowPosition(100, 100);
 	glutCreateWindow("A00273758: Rendering Project - Part 1");
 
+	
 	initializeGlutCallbacks();
 
 	// Must be done after glut is initialized!
@@ -59,12 +67,9 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
-	gameObject1.shader->buildShader("vertexShader.glsl", "fragmentShader.glsl");
-	gameObject2.shader->buildShader("vertexshader (2).glsl", "fragmentshader (2).glsl");
+	createmyShaderObj();
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-
-	createmyShaderObj();
 
 	glutMainLoop();
 

@@ -47,6 +47,7 @@ void ShaderTechnique::addShader(GLuint shaderProgram, const char* pShaderText, G
 	}
 
 	glAttachShader(shaderProgram, shaderObj);
+
 }
 
 void ShaderTechnique::buildShader(string vertexShaderPath, string fragmentShaderPath)
