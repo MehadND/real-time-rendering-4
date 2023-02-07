@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "firstshaders", "firstshader
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "attributeinterpolation", "attributeinterpolation\attributeinterpolation.vcxproj", "{700C960E-188F-480F-BF75-A459A60A1E8D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RenderingEngineProject", "Rendering Engine Project\RenderingEngineProject.vcxproj", "{BC058BD8-B073-47BF-9A12-E41DEF136F20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -81,6 +83,14 @@ Global
 		{700C960E-188F-480F-BF75-A459A60A1E8D}.Release|x64.Build.0 = Release|Win32
 		{700C960E-188F-480F-BF75-A459A60A1E8D}.Release|x86.ActiveCfg = Release|Win32
 		{700C960E-188F-480F-BF75-A459A60A1E8D}.Release|x86.Build.0 = Release|Win32
+		{BC058BD8-B073-47BF-9A12-E41DEF136F20}.Debug|x64.ActiveCfg = Debug|Win32
+		{BC058BD8-B073-47BF-9A12-E41DEF136F20}.Debug|x64.Build.0 = Debug|Win32
+		{BC058BD8-B073-47BF-9A12-E41DEF136F20}.Debug|x86.ActiveCfg = Debug|Win32
+		{BC058BD8-B073-47BF-9A12-E41DEF136F20}.Debug|x86.Build.0 = Debug|Win32
+		{BC058BD8-B073-47BF-9A12-E41DEF136F20}.Release|x64.ActiveCfg = Release|Win32
+		{BC058BD8-B073-47BF-9A12-E41DEF136F20}.Release|x64.Build.0 = Release|Win32
+		{BC058BD8-B073-47BF-9A12-E41DEF136F20}.Release|x86.ActiveCfg = Release|Win32
+		{BC058BD8-B073-47BF-9A12-E41DEF136F20}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

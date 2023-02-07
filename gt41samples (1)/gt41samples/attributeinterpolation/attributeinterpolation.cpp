@@ -12,6 +12,8 @@
 using namespace std;
 using namespace glm;
 
+// position + color + normal
+
 GLuint VBO;
 const int NUMVERTS = 3;
 
@@ -20,6 +22,7 @@ struct SimpleVertex
 {
     glm::vec3		pos;	// Position
 	glm::vec4		colour;	// Colour
+	glm::vec3		normal;	// Normal
 };
 
 static void renderSceneCallBack()
@@ -28,14 +31,17 @@ static void renderSceneCallBack()
 
     glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 28, 0);
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 28, (const GLvoid*)12);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 40, 0);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 40, (const GLvoid*)12);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 40, (const GLvoid*)28);
 
     glDrawArrays(GL_TRIANGLES, 0, NUMVERTS);
 
     glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
 
     glutSwapBuffers();
 }
@@ -51,9 +57,9 @@ static void createVertexBuffer()
 	// Create vertex buffer
 	SimpleVertex vertices[] =
 	{
-		{glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)},
-		{glm::vec3(0.5f, -0.5f, 0.0f),  glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)},
-		{glm::vec3( 0.0f, 0.5f, 0.0f),  glm::vec4(0.0f, 0.0f, 1.0f, 1.0f)}
+		{glm::vec3(-0.5f, -0.5f, 0.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f), glm::vec3(-0.5f, -0.5f, 0.0f)},
+		{glm::vec3(0.5f, -0.5f, 0.0f),  glm::vec4(0.0f, 1.0f, 0.0f, 1.0f), glm::vec3(-0.5f, -0.5f, 0.0f)},
+		{glm::vec3( 0.0f, 0.5f, 0.0f),  glm::vec4(0.0f, 0.0f, 1.0f, 1.0f), glm::vec3(-0.5f, -0.5f, 0.0f)}
 	};
     
  	glGenBuffers(1, &VBO);

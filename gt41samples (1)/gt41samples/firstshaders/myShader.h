@@ -49,4 +49,3 @@ public:
 static void renderSceneCallBack();
 static void initializeGlutCallbacks();
 static void createmyShaderObj();
-int main(int argc, char** argv);
