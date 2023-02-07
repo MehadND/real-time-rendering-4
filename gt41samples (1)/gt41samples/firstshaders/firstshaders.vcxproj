@@ -14,7 +14,6 @@
     <ClCompile Include="myShader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Rendering Engine Project\project.vcxproj" />
     <None Include="fragmentshader.glsl" />
     <None Include="freeglut.dll" />
     <None Include="glew32.dll" />
