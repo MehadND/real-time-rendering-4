@@ -1,13 +1,9 @@
-/*
-* ADD COMMENTS
-* ADD CODE FOR DELETING OR DETACHING SHADERS
-*/
-
 #include "ShaderTechnique.h"
 #include "GameObject.h"
 
 GameObject gameObject1;
 GameObject gameObject2;
+GameObject gameObject3;
 
 static void renderSceneCallBack()
 {
@@ -19,6 +15,9 @@ static void renderSceneCallBack()
 	gameObject2.shader->buildShader("vertexshader2.glsl", "fragmentshader2.glsl");
 	gameObject2.render();
 
+	gameObject3.shader->buildShader("vertexshader3.glsl", "fragmentshader3.glsl");
+	gameObject3.render();
+
 	glutSwapBuffers();
 }
 
@@ -27,25 +26,33 @@ static void initializeGlutCallbacks()
 	glutDisplayFunc(renderSceneCallBack);
 }
 
-static void createmyShaderObj()
+static void createGameObjects()
 {
 	const int numVerts = 3;	// use this once or duplicate for each vbo
 
 	gameObject1 = GameObject();
-	vec3 vert_shader1[numVerts];
-	vert_shader1[0] = vec3(-0.5f, 0.0f, 0.0f);
-	vert_shader1[1] = vec3(0.0f, 0.0f, 0.0f);
-	vert_shader1[2] = vec3(0.0f, 0.5f, 0.0f);
+	vec3 vert_gameObject1[numVerts];
+	vert_gameObject1[0] = vec3(-2.5f, 1.5f, 0.0f);
+	vert_gameObject1[1] = vec3(-1.5f, 1.5f, 0.0f);
+	vert_gameObject1[2] = vec3(-2.0f, 2.5f, 0.0f);
 
-	gameObject1.createVertexBuffer(vert_shader1, numVerts);
+	gameObject1.createVertexBuffer(vert_gameObject1, numVerts);
 
 	gameObject2 = GameObject();
-	vec3 vert_shader2[numVerts];
-	vert_shader2[0] = vec3(0.5f, 0.0f, 0.0f);
-	vert_shader2[1] = vec3(1.0f, 0.0f, 0.0f);
-	vert_shader2[2] = vec3(0.5f, 0.5f, 0.0f);
+	vec3 vert_gameObject2[numVerts];
+	vert_gameObject2[0] = vec3(0.0f, 0.0f, 0.0f);
+	vert_gameObject2[1] = vec3(1.0f, 0.0f, 0.0f);
+	vert_gameObject2[2] = vec3(0.5f, 1.0f, 0.0f);
 
-	gameObject2.createVertexBuffer(vert_shader2, numVerts);
+	gameObject2.createVertexBuffer(vert_gameObject2, numVerts);
+
+	gameObject3 = GameObject();
+	vec3 vert_gameObject3[numVerts];
+	vert_gameObject3[0] = vec3(-0.5f, -0.5f, 0.0f);
+	vert_gameObject3[1] = vec3(0.5f, -0.5f, 0.0f);
+	vert_gameObject3[2] = vec3(0.0f, -1.5f, 0.0f);
+
+	gameObject3.createVertexBuffer(vert_gameObject3, numVerts);
 }
 
 int main(int argc, char** argv)
@@ -67,7 +74,7 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
-	createmyShaderObj();
+	createGameObjects();
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
