@@ -14,7 +14,8 @@
   <hr/>
   
   #### UML Diagram: Showing Relationship between GameObject class & ShaderTechnique class
-  ![UML Diagram: Showing Relationship between GameObject class & ShaderTechnique class](https://github.com/MehadND/real-time-rendering-4/blob/0cfb8ef77be6ad0702a423c0a3d99f58f9a4429c/gt41samples%20(1)/gt41samples/renderingproject/part1%20UML%20diagram.png)
+  ![UML Diagram: Showing Relationship between GameObject class & ShaderTechnique class](https://github.com/MehadND/real-time-rendering-4/blob/main/gt41samples%20(1)/gt41samples/renderingproject/part1%20UML%20diagram.png?raw=true)
+    
   > As we can see in the UML diagram above, there is a relationship that exists between a GameObject and a ShaderTechnique. This relationship can be described as <i>has-a</i>. This basically means that a GameObject (instance) has-a ShaderTechnique or in other words an object has-a shader. 
   
   #### Code Implementation
@@ -29,7 +30,7 @@
   
   |   | Before  | After  |
   |---|---|---|
-  | <b>Image</b>  | <p align="center"><img src="https://user-images.githubusercontent.com/34424878/218224866-a321e4ff-0c1e-4f6a-8bab-207495e6703e.png" width=300 height=200/></p>  | <p align="center"><img src="https://user-images.githubusercontent.com/34424878/218225202-c0adc299-055d-452e-a1d0-7b9c538325e7.png" width=300 height=200/></p>  |
+  | <b>Image</b>  | <p><img src="https://user-images.githubusercontent.com/34424878/218224866-a321e4ff-0c1e-4f6a-8bab-207495e6703e.png"/></p>  | <p><img src="https://user-images.githubusercontent.com/34424878/218225202-c0adc299-055d-452e-a1d0-7b9c538325e7.png"/></p>  |
   | <b>Description</b>  | <ul><li>In this the scene, one shader is applied to every object that is being rendered.</li><li>No classes, everything is in one (.cpp) file.</li><li>The path of the shader files are hard coded, so cannot be changed for different objects.</li></ul> | <ul><li>Multiple objects are being rendered with each of them having their own shader.</li><li>In this part of project, there 2 main functionalities/classes<ul><li>GameObject</li><li>ShaderTechnique.</li></ul></li><li>`buildShader(vertexShaderPath, fragmentShaderPath)` function has 2 paramters for allwong users to enter file path of the shaders to be used.</li></ul> |
   
 <hr/>
