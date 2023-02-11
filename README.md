@@ -8,8 +8,9 @@
   <hr/>
   
   ### Goal
-  1. The goal of this part of the project was to refactor the code in such ways so that we can encapsuulate the data and its functionality, i.e. Separate/break-down the functionality of a GameObject and a Shader (ShaderTechnique) into different classes.
-  2. Show the relationship between a [GameObject](https://github.com/MehadND/real-time-rendering-4/blob/0cfb8ef77be6ad0702a423c0a3d99f58f9a4429c/gt41samples%20(1)/gt41samples/renderingproject/GameObject.h) & a [Shader](https://github.com/MehadND/real-time-rendering-4/blob/0cfb8ef77be6ad0702a423c0a3d99f58f9a4429c/gt41samples%20(1)/gt41samples/renderingproject/ShaderTechnique.h)
+  ✔️ The goal of this part of the project was to refactor the code in such ways so that we can encapsuulate the data and its functionality, i.e. Separate/break-down the functionality of a GameObject and a Shader (ShaderTechnique) into different classes.
+  
+  ✔️ Show the relationship between a [GameObject](https://github.com/MehadND/real-time-rendering-4/blob/0cfb8ef77be6ad0702a423c0a3d99f58f9a4429c/gt41samples%20(1)/gt41samples/renderingproject/GameObject.h) & a [Shader](https://github.com/MehadND/real-time-rendering-4/blob/0cfb8ef77be6ad0702a423c0a3d99f58f9a4429c/gt41samples%20(1)/gt41samples/renderingproject/ShaderTechnique.h)
   
   <hr/>
   
