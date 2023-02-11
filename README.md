@@ -31,7 +31,7 @@
   |   | Before  | After  |
   |---|---|---|
   | <b>Image</b>  | <p><img src="https://user-images.githubusercontent.com/34424878/218224866-a321e4ff-0c1e-4f6a-8bab-207495e6703e.png"/></p>  | <p><img src="https://user-images.githubusercontent.com/34424878/218225202-c0adc299-055d-452e-a1d0-7b9c538325e7.png"/></p>  |
-  | <b>Description</b>  | <ul><li>In this the scene, one shader is applied to every object that is being rendered.</li><li>No classes, everything is in one (.cpp) file.</li><li>The path of the shader files are hard coded, so cannot be changed for different objects.</li></ul> | <ul><li>Multiple objects are being rendered with each of them having their own shader.</li><li>In this part of project, there 2 main functionalities/classes<ul><li>GameObject</li><li>ShaderTechnique.</li></ul></li><li>`buildShader(vertexShaderPath, fragmentShaderPath)` function has 2 paramters for allwong users to enter file path of the shaders to be used.</li></ul> |
+  | <b>Description</b>  | <ul><li>Multiple objects are being rendered with each of them having their own shader.</li><li>In this part of project, there 2 main functionalities/classes<ul><li>GameObject</li><li>ShaderTechnique.</li></ul></li><li>`buildShader(vertexShaderPath, fragmentShaderPath)` function has 2 paramters for allwong users to enter file path of the shaders to be used.</li></ul> | <ul><li>Multiple objects are being rendered with each of them having their own shader.</li><li>In this part of project, there 2 main functionalities/classes<ul><li>GameObject</li><li>ShaderTechnique.</li></ul></li><li>`buildShader(vertexShaderPath, fragmentShaderPath)` function has 2 paramters for allwong users to enter file path of the shaders to be used.</li></ul> |
   
 <hr/>
 
