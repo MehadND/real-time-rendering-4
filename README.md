@@ -15,7 +15,7 @@
   <hr/>
   
   ### UML Diagram: Showing Relationship between GameObject class & ShaderTechnique class
-  ![UML Diagram: Showing Relationship between GameObject class & ShaderTechnique class](https://github.com/MehadND/real-time-rendering-4/blob/main/gt41samples%20(1)/gt41samples/renderingproject/part1%20UML%20diagram.png?raw=true)
+  ![UML Diagram: Showing Relationship between GameObject class & ShaderTechnique class](https://user-images.githubusercontent.com/34424878/218233715-c4c1ceb1-90b4-4640-a164-d878f9ceac1d.png)
     
   > As we can see in the UML diagram above, there is a relationship that exists between a GameObject and a ShaderTechnique. This relationship can be described as <i>has-a</i>. This basically means that a GameObject (instance) has-a ShaderTechnique or in other words an object has-a shader. 
   
