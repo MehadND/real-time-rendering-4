@@ -14,7 +14,9 @@
   <hr/>
   
   ### Goal
-  ✔️ The goal of this part of the project was to refactor the code in such ways so that we can encapsulate the data and its functionality, i.e. Separate/break-down the functionality of a GameObject and a Shader (ShaderTechnique).
+  #### ▷ The goal of this part of the project was to refactor the code in such ways so that we can encapsulate the data and its functionality, 
+   
+   i.e. Break down the functionality of a GameObject and a Shader (ShaderTechnique) into different classes.
     
   <hr/>
   
@@ -31,26 +33,18 @@
      
   <hr/>
   
-  ### Results 
-  
-  - #### Before
+  ### Results - Before
   
   | <p><img src="https://user-images.githubusercontent.com/34424878/218224866-a321e4ff-0c1e-4f6a-8bab-207495e6703e.png"/></p>  | <ul><li>In this the scene, one shader is applied to every object that is being rendered.</li><li>No classes, everything is in one (.cpp) file.</li><li>The path of the shader files are hard coded, so cannot be changed for different objects.</li></ul>   |
   |:-:|:--|
 
-  
-  
-  
-  - #### After
+  ### After
   
   | <p><img src="https://user-images.githubusercontent.com/34424878/218225202-c0adc299-055d-452e-a1d0-7b9c538325e7.png"/></p>  | <ul><li>Multiple objects are being rendered with each of them having their own shader.</li><li>In this part of project, the different functionalities are divided into their own separate classes.<ul><li>GameObject</li><li>ShaderTechnique.</li></ul></li><li>`buildShader(vertexShaderPath, fragmentShaderPath)` function has 2 paramters for allwong users to enter file paths of the (vertex & fragment) shaders to be used for an object.</li></ul>  |
   |:-:|:--|
   
-
-  
 <hr/>
-
-
+   
 </details>
 
   
