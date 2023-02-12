@@ -1,3 +1,0 @@
-C:\Users\A00273758\Downloads\gt41samples (1)\gt41samples\basicapplication\Debug\basicapplication.exe
-C:\Users\A00273758\Documents\GitHub\real-time-rendering\gt41samples (1)\gt41samples\basicapplication\Debug\basicapplication.exe
-D:\AIT\Github\AIT (Uni Repos)\Year4\real-time-rendering\gt41samples (1)\gt41samples\basicapplication\Debug\basicapplication.exe
