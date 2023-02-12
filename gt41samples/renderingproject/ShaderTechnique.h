@@ -8,7 +8,7 @@
 #include <glm/glm.hpp>
 #include <Windows.h>
 
-#include "../firstshaders/aiterror.h"
+#include "aiterror.h"
 
 using namespace std;
 using namespace glm;

@@ -11,13 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="final.cpp" />
+    <ClCompile Include="ProjectRenderer.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="renderingproject.cpp" />
     <ClCompile Include="ShaderTechnique.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\firstshaders\aiterror.h" />
+    <ClInclude Include="aiterror.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="ShaderTechnique.h" />
   </ItemGroup>

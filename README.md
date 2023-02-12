@@ -2,6 +2,8 @@
 
 ## Rendering Engine Project
 
+###### For running the project, simply run the `ProjectRenderer.cpp` file
+
 <details>
   <summary><h2>Part 1 [Status: ✅]</h2></summary>
   

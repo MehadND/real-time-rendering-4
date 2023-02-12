@@ -1,6 +1,14 @@
 #include "ShaderTechnique.h"
 #include "GameObject.h"
 
+// initialize some window properties
+unsigned int windowWidth = 1280;
+unsigned int windowHeight = 720;
+unsigned int windowPos_X = 100;
+unsigned int windowPos_Y = 100;
+const char* windowTitle = "A00273758: Rendering Project - Part 1";
+
+// some global GameObjects
 GameObject gameObject1;
 GameObject gameObject2;
 GameObject gameObject3;
@@ -59,9 +67,9 @@ int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowSize(1024, 768);
-	glutInitWindowPosition(100, 100);
-	glutCreateWindow("A00273758: Rendering Project - Part 1");
+	glutInitWindowSize(windowWidth, windowHeight);
+	glutInitWindowPosition(windowPos_X, windowPos_Y);
+	glutCreateWindow(windowTitle);
 
 	
 	initializeGlutCallbacks();
