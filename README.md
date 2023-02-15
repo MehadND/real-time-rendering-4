@@ -1,6 +1,9 @@
-# Real-Time Rendering 4
+<h1 align=center>Real-Time Rendering 4</h1>
 
-## Rendering Engine Project
+
+
+
+<h2 align=center>Rendering Engine Project</h2>
 
 <h3>Setup</h3>
    
@@ -10,12 +13,12 @@
    4. Finally, run the `ProjectRenderer.cpp` file.
    
 
-## Part 1 [Status: ✅]
-  
+<h2 align=center>Part 1 [Status: ✅]</h2>
+
 <details>
    <summary><h3>Goal</h3></summary>
 
-   > #### Goal Of Projct <br/><br/>▷ The goal of this part of the project was to refactor the code in such ways so that we can encapsulate the data and its functionality, <br/>i.e. Break down the functionality of a GameObject and a Shader into different classes.
+   > #### Goal Of Projct <br/><br/>▷ The goal of this part of the project was to refactor the code in such ways so that we can encapsulate the data and its functionality, <br/> <br/>i.e. Break down the functionality of a GameObject and a Shader into different classes.
 </details>
 
 <details>
@@ -106,14 +109,14 @@ public:
 </details>
 
 
-## Part 2 [Status: ❌]
-  
+<h2 align=center>Part 2 [Status: ❌]</h2>
+
 <details>
    <summary><h3>Goal</h3></summary>
 </details>
 
 
-## Part ... [Status: ❌]
+<h2 align=center>Part ... [Status: ❌]</h2>
   
 <details>
    <summary><h3>Goal</h3></summary>
