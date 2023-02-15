@@ -13,7 +13,6 @@
   <ItemGroup>
     <ClCompile Include="ProjectRenderer.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="renderingproject.cpp" />
     <ClCompile Include="ShaderTechnique.cpp" />
   </ItemGroup>
   <ItemGroup>
