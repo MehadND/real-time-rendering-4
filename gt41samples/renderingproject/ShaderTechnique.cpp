@@ -50,7 +50,7 @@ void ShaderTechnique::addShader(GLuint shaderProgram, const char* pShaderText, G
 
 }
 
-void ShaderTechnique::buildShader(string vertexShaderPath, string fragmentShaderPath)
+void ShaderTechnique::buildShader(string vertexShaderPath, string fragmentShaderPath) 
 {
 	GLuint shaderProgram = glCreateProgram();
 

@@ -18,6 +18,8 @@ static void renderSceneCallBack()
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	gameObject1.shader->buildShader("vertexShader.glsl", "fragmentShader.glsl");
+	// (GameObjectB object)
+	// gameObject1.buildShader("vertexShader.glsl", "fragmentShader.glsl");
 	gameObject1.render();
 
 	gameObject2.shader->buildShader("vertexshader2.glsl", "fragmentshader2.glsl");
