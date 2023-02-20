@@ -28,9 +28,7 @@ public:
 	void render();
 };
 
-/// A Gameobject class which creates the vertex buffer and renders the gameobject.
-/// This class inherits membersand functions of ShaderTechnique class as private membersand functions
-
+// A Gameobject class which creates the vertex buffer and renders the gameobject.
 //class GameObject
 //{
 //public:
@@ -50,9 +48,8 @@ public:
 //};
 
 
-/// A Gameobject class which creates the vertex buffer and renders the gameobject.
-/// This class inherits membersand functions of ShaderTechnique class as private membersand functions
-
+// A Gameobject class which creates the vertex buffer and renders the gameobject.
+// This class inherits membersand functions of ShaderTechnique class as private membersand functions
 //class GameObject : public ShaderTechnique
 //{
 //public:
