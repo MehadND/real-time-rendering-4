@@ -19,6 +19,9 @@ GameObject gameObject1;
 GameObject gameObject2;
 GameObject gameObject3;
 
+ShaderTechnique shader1;
+ShaderTechnique shader2;
+
 #pragma region Render-Scene
 // The commented piece of code is the code that works for other GameObject class alternatives...
 //1st is for Shader Instance...2nd line is for only inheritance
@@ -26,19 +29,10 @@ static void renderSceneCallBack()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	gameObject1.shader->buildShader("vertexShader.glsl", "fragmentShader.glsl");
-	// gameObject1.shader.buildShader("vertexShader.glsl", "fragmentShader.glsl");
-	// gameObject1.buildShader("vertexShader.glsl", "fragmentShader.glsl");
 	gameObject1.render();
 
-	gameObject2.shader->buildShader("vertexshader2.glsl", "fragmentshader2.glsl");
-	// gameObject2.shader.buildShader("vertexshader2.glsl", "fragmentshader2.glsl");
-	// gameObject2.buildShader("vertexshader2.glsl", "fragmentshader2.glsl");
 	gameObject2.render();
 
-	gameObject3.shader->buildShader("vertexshader3.glsl", "fragmentshader3.glsl");
-	// gameObject3.shader.buildShader("vertexshader3.glsl", "fragmentshader3.glsl");
-	// gameObject3.buildShader("vertexshader3.glsl", "fragmentshader3.glsl");
 	gameObject3.render();
 
 	glutSwapBuffers();
@@ -46,6 +40,7 @@ static void renderSceneCallBack()
 #pragma endregion
 
 #pragma region Creating-GameObjects
+// Create GameObjects and its vertex buffer as well as sets the shader for the gameObject
 static void createGameObjects()
 {
 	const int numVerts = 3;	// use this once or duplicate for each vbo
@@ -57,6 +52,7 @@ static void createGameObjects()
 	vert_gameObject1[2] = vec3(-2.0f, 2.5f, 0.0f);
 
 	gameObject1.createVertexBuffer(vert_gameObject1, numVerts);
+	gameObject1.setShader(&shader1);
 
 	gameObject2 = GameObject();
 	vec3 vert_gameObject2[numVerts];
@@ -65,6 +61,7 @@ static void createGameObjects()
 	vert_gameObject2[2] = vec3(0.5f, 1.0f, 0.0f);
 
 	gameObject2.createVertexBuffer(vert_gameObject2, numVerts);
+	gameObject2.setShader(&shader2);
 
 	gameObject3 = GameObject();
 	vec3 vert_gameObject3[numVerts];
@@ -73,6 +70,7 @@ static void createGameObjects()
 	vert_gameObject3[2] = vec3(0.0f, -1.5f, 0.0f);
 
 	gameObject3.createVertexBuffer(vert_gameObject3, numVerts);
+	gameObject3.setShader(&shader1);
 
 
 	/*
@@ -117,6 +115,10 @@ int main(int argc, char** argv)
 		cerr << "Error: " << glewGetErrorString(res) << "\n";
 		return 1;
 	}
+
+
+	shader1.buildShader("vertexShader.glsl", "fragmentShader.glsl");
+	shader2.buildShader("vertexShader2.glsl", "fragmentShader2.glsl");
 
 	createGameObjects();
 

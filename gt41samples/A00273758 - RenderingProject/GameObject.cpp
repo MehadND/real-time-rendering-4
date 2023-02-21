@@ -10,7 +10,6 @@ GameObject::GameObject()
 	vbo = NULL;
 	numOfVertices = 0;
 	shader = NULL;
-	//shader = ShaderTechnique();
 }
 
 void GameObject::createVertexBuffer(vec3 vertices[], int numverts)
@@ -37,8 +36,14 @@ void GameObject::createVertexBuffer(vec3 vertices[], int numverts)
 //	createVertexBuffer(vert_gameObject, numVerts);
 //}
 
+void GameObject::setShader(ShaderTechnique* s)
+{
+	shader = s;
+}
+
 void GameObject::render()
 {
+	shader->useShader();
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);

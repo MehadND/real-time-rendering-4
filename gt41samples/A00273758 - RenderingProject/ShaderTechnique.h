@@ -33,5 +33,11 @@ public:
 
 	// links and validates the shader program and sets it into pipeline
 	void buildShader(string vertexShaderPath, string fragmentShaderPath);
+
+	// enables the shader for the gameObject
+	void useShader();
+
+private:
+	GLuint shaderProgram;
 };
 

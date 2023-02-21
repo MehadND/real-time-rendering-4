@@ -57,7 +57,7 @@ void ShaderTechnique::addShader(GLuint shaderProgram, const char* pShaderText, G
 
 void ShaderTechnique::buildShader(string vertexShaderPath, string fragmentShaderPath) 
 {
-	GLuint shaderProgram = glCreateProgram();
+	shaderProgram = glCreateProgram();
 
 	if (shaderProgram == 0)
 	{
@@ -94,5 +94,9 @@ void ShaderTechnique::buildShader(string vertexShaderPath, string fragmentShader
 		AIT_ASSERT(0, ss.str());
 	}
 
+}
+
+void ShaderTechnique::useShader()
+{
 	glUseProgram(shaderProgram);
 }
