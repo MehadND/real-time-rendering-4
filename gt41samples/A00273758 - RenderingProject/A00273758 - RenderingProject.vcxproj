@@ -23,10 +23,8 @@
   <ItemGroup>
     <None Include="fragmentshader.glsl" />
     <None Include="fragmentshader2.glsl" />
-    <None Include="fragmentShader3.glsl" />
     <None Include="vertexshader.glsl" />
     <None Include="vertexshader2.glsl" />
-    <None Include="vertexShader3.glsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{664BD9CA-B7BE-47DD-A47E-9CAC62A7B4B8}</ProjectGuid>

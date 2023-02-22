@@ -9,44 +9,40 @@ GameObject::GameObject()
 {
 	vbo = NULL;
 	numOfVertices = 0;
-	shader = NULL;
+	gameObjectProperties.shader = NULL;
 }
 
-void GameObject::createVertexBuffer(vec3 vertices[], int numverts)
+void GameObject::createVertexBuffer(Properties properties[], int numverts)
 {
 	numOfVertices = numverts;
 
 	glGenBuffers(1, &vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * numOfVertices, vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Properties) * numOfVertices, properties, GL_STATIC_DRAW);
 }
-
-/*
-	Creating objects using a function
-	*/
-//void GameObject::createGameObject(vec3 vertOne, vec3 vertTwo, vec3 vertThree)
-//{
-//	const int numVerts = 3;
-//	vec3 vert_gameObject[numVerts];
-//
-//	vert_gameObject[0] = vertOne;
-//	vert_gameObject[1] = vertTwo;
-//	vert_gameObject[2] = vertThree;
-//
-//	createVertexBuffer(vert_gameObject, numVerts);
-//}
 
 void GameObject::setShader(ShaderTechnique* s)
 {
-	shader = s;
+	gameObjectProperties.shader = s;
 }
 
 void GameObject::render()
 {
-	shader->useShader();
+	gameObjectProperties.shader->useShader();
+
 	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
+
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 40, 0);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 40, (const GLvoid*)12);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 40, (const GLvoid*)28);
+
 	glDrawArrays(GL_TRIANGLES, 0, numOfVertices);
+
 	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
 }
