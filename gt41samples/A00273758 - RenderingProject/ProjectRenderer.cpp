@@ -4,6 +4,10 @@ Github   : https://github.com/MehadND
 File Name: ProjectRenderer.cpp
 ****************************************************************************/
 
+
+// BEST DOC ON OPENGL/GLUT --> https://registry.khronos.org/OpenGL-Refpages/gl4/
+
+
 #include "ShaderTechnique.h"
 #include "GameObject.h"
 
@@ -14,25 +18,26 @@ unsigned int windowPos_X = 800;
 unsigned int windowPos_Y = 400;
 const char* windowTitle = "A00273758: Rendering Project - Part 1";
 
-// some global GameObjects
-GameObject gameObject1;
-GameObject gameObject2;
-GameObject gameObject3;
-GameObject gameObject4;
+// some GameObjects + Shaders
+GameObject objA;
+ShaderTechnique shaderA;
 
-ShaderTechnique shader1;
-ShaderTechnique shader2;
+GameObject objB;
+ShaderTechnique shaderB;
 
-// The commented piece of code is the code that works for other GameObject class alternatives...
-//1st is for Shader Instance...2nd line is for only inheritance
 static void renderSceneCallBack()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	gameObject1.render();
-	gameObject2.render();
-	gameObject3.render();
-	gameObject4.render();
+	objA.render();
+	objB.render();
+
+	// Render a line
+	//glBegin(GL_LINES);
+	//glColor3f(1.0, 1.0, 1.0); // White
+	//glVertex3f(-1.0f, -2.0f, 0.0f);
+	//glVertex3f(3.0f, -2.0f, 0.0f);
+	//glEnd();
 
 	glutSwapBuffers();
 }
@@ -42,41 +47,31 @@ static void createGameObjects()
 {
 	const int numVerts = 3;	// use this once or duplicate for each vbo
 
-	Properties objectDataA[numVerts] = {
-		{glm::vec3(2.0f, 1.0f, 0.0f), glm::vec4(0.6f, 1.0f, 0.4f, 1.0f), glm::vec3()},
-		{glm::vec3(3.0f, 1.0f, 0.0f), glm::vec4(0.6f, 0.8f, 1.0f, 1.0f), glm::vec3()},
-		{glm::vec3(2.5f, 2.0f, 0.0f), glm::vec4(0.69f, 0.25f, 0.8f, 1.0f), glm::vec3()},
+	Properties objA_Data[numVerts] = {
+		{glm::vec3(-3.0f, 0.0f, 0.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)},
+		{glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)},
+		{glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f)}
 	};
 
-	gameObject1.createVertexBuffer(objectDataA, numVerts);
-	gameObject1.setShader(&shader1);
+	objA.setPrimitiveMode(GL_TRIANGLES);
+	objA.createVertexBuffer(objA_Data, numVerts);
+	objA.setShader(&shaderA);
 
-	Properties objectDataB[numVerts] = {
-		{glm::vec3(-2.0f, -1.0f, 0.0f), glm::vec4(0.6f, 1.0f, 0.4f, 1.0f), glm::vec3()},
-		{glm::vec3(-1.0f, -1.0f, 0.0f), glm::vec4(0.6f, 0.8f, 1.0f, 1.0f), glm::vec3()},
-		{glm::vec3(-1.5f, -2.0f, 0.0f), glm::vec4(0.69f, 0.25f, 0.8f, 1.0f), glm::vec3()},
+	Properties objB_Data[numVerts] = {
+		{glm::vec3(3.0f, 0.0f, 0.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)},
+		{glm::vec3(2.0f, 1.0f, 0.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)},
+		{glm::vec3(1.0f, 0.0f, 0.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f)}
 	};
 
-	gameObject2.createVertexBuffer(objectDataB, numVerts);
-	gameObject2.setShader(&shader2);
+	objB.setPrimitiveMode(GL_TRIANGLES);
+	objB.createVertexBuffer(objB_Data, numVerts);
+	objB.setShader(&shaderB);
 
-	Properties objectDataC[numVerts] = {
-		{glm::vec3(-2.0f, -1.0f, 0.0f), glm::vec4(0.8f, 0.6f, 0.0f, 1.0f), glm::vec3()},
-		{glm::vec3(-1.0f, -1.0f, 0.0f), glm::vec4(0.0f, 0.8f, 1.0f, 1.0f), glm::vec3()},
-		{glm::vec3(-1.5f, -2.0f, 0.0f), glm::vec4(0.6f, 0.0f, 0.2f, 1.0f), glm::vec3()},
-	};
-
-	gameObject3.createVertexBuffer(objectDataC, numVerts);
-	gameObject3.setShader(&shader1);
-
-	Properties objectDataD[numVerts] = {
-		{glm::vec3(2.0f, 1.0f, 0.0f), glm::vec4(0.8f, 0.6f, 0.0f, 1.0f), glm::vec3()},
-		{glm::vec3(3.0f, 1.0f, 0.0f), glm::vec4(0.0f, 0.8f, 1.0f, 1.0f), glm::vec3()},
-		{glm::vec3(2.5f, 2.0f, 0.0f), glm::vec4(0.6f, 0.0f, 0.2f, 1.0f), glm::vec3()},
-	};
-
-	gameObject4.createVertexBuffer(objectDataD, numVerts);
-	gameObject4.setShader(&shader2);
+	/* 
+		TODO: Can we do something like create a function that allows us to create game object using the struct, 
+		e.g. 
+			objA.createObj(objA_Data->pos, objA_Data->color, ...);  --> This would have setPrimitiveMode(), createVertexBuffer(), setShader() functions in it
+	*/
 }
 
 static void processMouse(int button, int state, int x, int y)
@@ -84,10 +79,14 @@ static void processMouse(int button, int state, int x, int y)
 	if (button == GLUT_LEFT_BUTTON)
 	{
 		printf("Left Mouse Button Clicked");
+		glPolygonMode(GL_FRONT, GL_LINE);
+		glPolygonMode(GL_BACK, GL_LINE);
 	}
 	else if (button == GLUT_RIGHT_BUTTON)
 	{
 		printf("Right Mouse Button Clicked");
+		glPolygonMode(GL_FRONT, GL_FILL);
+		glPolygonMode(GL_BACK, GL_FILL);
 	}
 }
 
@@ -116,13 +115,13 @@ int main(int argc, char** argv)
 		return 1;
 	}
 
-
-	shader1.buildShader("vertexShader.glsl", "fragmentShader.glsl");
-	shader2.buildShader("vertexShader2.glsl", "fragmentShader2.glsl");
+	// build (all) shaders	
+	shaderA.buildShader("vertexShader.glsl", "fragmentShader.glsl");
+	shaderB.buildShader("vertexShader2.glsl", "fragmentShader2.glsl");
 
 	glClearColor(0.07f, 0.08f, 0.13f, 1.0f);
 
-	createGameObjects();
+	createGameObjects();	// creates set of gameObjects
 
 
 	glutMainLoop();
