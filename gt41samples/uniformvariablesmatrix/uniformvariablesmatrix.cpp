@@ -29,17 +29,24 @@ static void renderSceneCallBack()
 
     // Update the gTransform variable in the Vertex Shade on the GPU
     mat4 trans = mat4(1.0f);
-    
+    mat4 rotat = mat4(1.0f);
+    mat4 sca = mat4(1.0f);
+
     static float deltax = 0.0f;
     deltax += 0.005f;
-    trans = translate(mat4(1.0f), vec3(deltax, 0.0f, 0.0f));
+    if(deltax <= 0.5f)
+        trans = translate(mat4(1.0f), vec3(deltax, 0.0f, 0.0f));
+    else
+        trans = translate(mat4(1.0f), vec3(0.5f, 0.0f, 0.0f));
 
     static float rot = 0.0f;
     rot += 0.5f;
-    trans = rotate(mat4(1.0f), rot, vec3(0.0f, 1.0f, 0.0f));
+    rotat = rotate(mat4(1.0f), rot, vec3(0.0f, 1.0f, 0.0f));
 
-    trans = scale(mat4(1.0f), vec3(0.5f, 0.5f, 1.0f));
-    glUniformMatrix4fv(gTransformLocation, 1, GL_FALSE, &trans[0][0]);
+    sca = scale(mat4(1.0f), vec3(0.5f, 0.5f, 1.0f));
+
+    mat4 full =  trans * rotat * sca;
+    glUniformMatrix4fv(gTransformLocation, 1, GL_FALSE, &full[0][0]);
 
     
     glEnableVertexAttribArray(0);

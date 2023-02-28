@@ -9,8 +9,8 @@ File Name: GameObject.h
 
 struct Properties
 {
-	glm::vec3		pos;
-	glm::vec4		color;
+	vec3		pos;
+	vec4		color;
 	//glm::vec3		normal;
 
 	ShaderTechnique* shader; // pointer to the attached shader
@@ -27,6 +27,12 @@ private:
 
 	Properties gameObjectProperties;
 
+	GLuint gTransformLocation;
+
+	mat4 finalTrans = mat4(1.0f);
+	mat4 translator = mat4(1.0f);
+	mat4 rotator = mat4(1.0f);
+	mat4 scaler = mat4(1.0f);
 
 
 public:
@@ -36,7 +42,7 @@ public:
 	void setPrimitiveMode(GLenum mode);
 
 	// Creates a buffer based on the array of vertices passed into the function
-	void createVertexBuffer(Properties properties[], int numverts);
+	void createVertexBuffer(Properties* properties, int numverts);
 
 	// sets the shader (initailizes)
 	void setShader(ShaderTechnique* s);

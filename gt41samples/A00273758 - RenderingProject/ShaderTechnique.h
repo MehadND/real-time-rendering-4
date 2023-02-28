@@ -22,12 +22,7 @@ using namespace glm;
 class ShaderTechnique
 {
 public:
-	mat4 finalTranform = mat4(1.0f);
-	mat4 transform_translate = mat4(1.0f);
-	mat4 transform_rotation = mat4(1.0f);
-	mat4 transform_scale = mat4(1.0f);
-
-	GLuint gTransformLocation;
+	GLuint shaderProgram;
 
 	// default constructor
 	ShaderTechnique();
@@ -45,7 +40,6 @@ public:
 	void useShader();
 
 private:
-	GLuint shaderProgram;
 
 };
 

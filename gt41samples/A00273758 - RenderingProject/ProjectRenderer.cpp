@@ -16,7 +16,7 @@ unsigned int windowWidth = 800;
 unsigned int windowHeight = 500;
 unsigned int windowPos_X = 800;
 unsigned int windowPos_Y = 400;
-const char* windowTitle = "A00273758: Rendering Project - Part 1";
+const char* windowTitle = "A00273758: Rendering Project - Part 1 & 2";
 
 // some GameObjects + Shaders
 GameObject objA;
@@ -30,7 +30,7 @@ static void renderSceneCallBack()
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	objA.render();
-	objB.render();
+	//objB.render();
 
 	// Render a line
 	//glBegin(GL_LINES);
@@ -46,7 +46,7 @@ static void renderSceneCallBack()
 static void createGameObjects()
 {
 	const int numVerts = 3;	// use this once or duplicate for each vbo
-
+	
 	Properties objA_Data[numVerts] = {
 		{vec3(-0.5f, -0.5f, 0.0f), vec4(1.0f, 0.0f, 0.0f, 1.0f)},
 		{vec3(0.5f, -0.5f, 0.0f),  vec4(0.0f, 1.0f, 0.0f, 1.0f)},
@@ -57,15 +57,15 @@ static void createGameObjects()
 	objA.createVertexBuffer(objA_Data, numVerts);
 	objA.setShader(&shaderA);
 
-	Properties objB_Data[numVerts] = {
-		{vec3(-0.5f, -0.5f, 0.0f), vec4(1.0f, 0.0f, 0.0f, 1.0f)},
-		{vec3(0.5f, -0.5f, 0.0f),  vec4(0.0f, 1.0f, 0.0f, 1.0f)},
-		{vec3(0.0f, 0.5f, 0.0f),  vec4(0.0f, 0.0f, 1.0f, 1.0f)}
-	};
+	//Properties objB_Data[numVerts] = {
+	//	{vec3(-0.5f, -0.5f, 0.0f), vec4(1.0f, 0.0f, 0.0f, 1.0f)},
+	//	{vec3(0.5f, -0.5f, 0.0f),  vec4(0.0f, 1.0f, 0.0f, 1.0f)},
+	//	{vec3(0.0f, 0.5f, 0.0f),  vec4(0.0f, 0.0f, 1.0f, 1.0f)}
+	//};
 
-	objB.setPrimitiveMode(GL_TRIANGLES);
-	objB.createVertexBuffer(objB_Data, numVerts);
-	objB.setShader(&shaderB);
+	//objB.setPrimitiveMode(GL_TRIANGLES);
+	//objB.createVertexBuffer(objB_Data, numVerts);
+	//objB.setShader(&shaderB);
 }
 
 static void processMouse(int button, int state, int x, int y)
@@ -87,15 +87,16 @@ static void processMouse(int button, int state, int x, int y)
 static void initializeGlutCallbacks()
 {
 	glutDisplayFunc(renderSceneCallBack);
+	glutIdleFunc(renderSceneCallBack);
 	glutMouseFunc(processMouse);
 }
 
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
-	glutInitWindowSize(windowWidth, windowHeight);
-	glutInitWindowPosition(windowPos_X, windowPos_Y);
+    glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGBA);
+    glutInitWindowSize(1024, 768);
+    glutInitWindowPosition(100, 100);
 	glutCreateWindow(windowTitle);
 
 
@@ -111,7 +112,7 @@ int main(int argc, char** argv)
 
 	// build (all) shaders	
 	shaderA.buildShader("vertexShader.glsl", "fragmentShader.glsl");
-	shaderB.buildShader("vertexShader2.glsl", "fragmentShader2.glsl");
+	//shaderB.buildShader("vertexShader2.glsl", "fragmentShader2.glsl");
 
 	glClearColor(0.07f, 0.08f, 0.13f, 1.0f);
 
