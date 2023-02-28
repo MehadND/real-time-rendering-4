@@ -99,4 +99,23 @@ void ShaderTechnique::buildShader(string vertexShaderPath, string fragmentShader
 void ShaderTechnique::useShader()
 {
 	glUseProgram(shaderProgram);
+
+	// Linking the offset in shader with variable in cpu
+	gTransformLocation = glGetUniformLocation(shaderProgram, "gTransform");
+	assert(gTransformLocation != 0xFFFFFFFF);
+
+	static float deltax = 0.0f;
+	deltax += 0.005f;
+	transform_translate = translate(mat4(1.0f), vec3(deltax, 0.0f, 0.0f));
+
+	static float rot = 0.0f;
+	rot += 0.5f;
+	transform_rotation = rotate(mat4(1.0f), rot, vec3(0.0f, 1.0f, 0.0f));
+
+	transform_scale = scale(mat4(1.0f), vec3(0.5f, 0.5f, 1.0f));
+
+	finalTranform = transform_translate * transform_rotation * transform_scale;
+
+	glUniformMatrix4fv(gTransformLocation, 1, GL_FALSE, &finalTranform[0][0]);
+
 }

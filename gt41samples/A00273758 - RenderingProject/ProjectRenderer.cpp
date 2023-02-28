@@ -6,7 +6,7 @@ File Name: ProjectRenderer.cpp
 
 
 // BEST DOC ON OPENGL/GLUT --> https://registry.khronos.org/OpenGL-Refpages/gl4/
-
+// https://learnopengl.com/Getting-started/Transformations
 
 #include "ShaderTechnique.h"
 #include "GameObject.h"
@@ -48,9 +48,9 @@ static void createGameObjects()
 	const int numVerts = 3;	// use this once or duplicate for each vbo
 
 	Properties objA_Data[numVerts] = {
-		{glm::vec3(-3.0f, 0.0f, 0.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)},
-		{glm::vec3(-2.0f, 1.0f, 0.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)},
-		{glm::vec3(-1.0f, 0.0f, 0.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f)}
+		{vec3(-0.5f, -0.5f, 0.0f), vec4(1.0f, 0.0f, 0.0f, 1.0f)},
+		{vec3(0.5f, -0.5f, 0.0f),  vec4(0.0f, 1.0f, 0.0f, 1.0f)},
+		{vec3(0.0f, 0.5f, 0.0f),  vec4(0.0f, 0.0f, 1.0f, 1.0f)}
 	};
 
 	objA.setPrimitiveMode(GL_TRIANGLES);
@@ -58,20 +58,14 @@ static void createGameObjects()
 	objA.setShader(&shaderA);
 
 	Properties objB_Data[numVerts] = {
-		{glm::vec3(3.0f, 0.0f, 0.0f), glm::vec4(1.0f, 0.0f, 0.0f, 1.0f)},
-		{glm::vec3(2.0f, 1.0f, 0.0f), glm::vec4(0.0f, 1.0f, 0.0f, 1.0f)},
-		{glm::vec3(1.0f, 0.0f, 0.0f), glm::vec4(0.0f, 0.0f, 1.0f, 1.0f)}
+		{vec3(-0.5f, -0.5f, 0.0f), vec4(1.0f, 0.0f, 0.0f, 1.0f)},
+		{vec3(0.5f, -0.5f, 0.0f),  vec4(0.0f, 1.0f, 0.0f, 1.0f)},
+		{vec3(0.0f, 0.5f, 0.0f),  vec4(0.0f, 0.0f, 1.0f, 1.0f)}
 	};
 
 	objB.setPrimitiveMode(GL_TRIANGLES);
 	objB.createVertexBuffer(objB_Data, numVerts);
 	objB.setShader(&shaderB);
-
-	/* 
-		TODO: Can we do something like create a function that allows us to create game object using the struct, 
-		e.g. 
-			objA.createObj(objA_Data->pos, objA_Data->color, ...);  --> This would have setPrimitiveMode(), createVertexBuffer(), setShader() functions in it
-	*/
 }
 
 static void processMouse(int button, int state, int x, int y)

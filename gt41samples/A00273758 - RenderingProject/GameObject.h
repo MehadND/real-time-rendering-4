@@ -27,6 +27,8 @@ private:
 
 	Properties gameObjectProperties;
 
+
+
 public:
 	// default constructor
 	GameObject();

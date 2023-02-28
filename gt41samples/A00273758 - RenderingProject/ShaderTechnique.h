@@ -6,13 +6,13 @@ File Name: ShaderTechnique.h
 #pragma once
 
 #include <iostream>
-#include <sstream>
 #include <fstream>
+#include <sstream>
 #include <GL/glew.h>
 #include <GL/freeglut.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include <Windows.h>
-
 #include "aiterror.h"
 
 using namespace std;
@@ -22,6 +22,13 @@ using namespace glm;
 class ShaderTechnique
 {
 public:
+	mat4 finalTranform = mat4(1.0f);
+	mat4 transform_translate = mat4(1.0f);
+	mat4 transform_rotation = mat4(1.0f);
+	mat4 transform_scale = mat4(1.0f);
+
+	GLuint gTransformLocation;
+
 	// default constructor
 	ShaderTechnique();
 
@@ -39,5 +46,6 @@ public:
 
 private:
 	GLuint shaderProgram;
+
 };
 

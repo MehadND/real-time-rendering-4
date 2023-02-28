@@ -5,10 +5,10 @@ layout (location = 1) in vec4 Colour;
 
 out vec4 Colour0;
 
-uniform mat4 gTransform;
+uniform float gScale;
                                                                    
 void main()
-{   
-    gl_Position = gTransform * vec4(Position.x, Position.y, Position.z, 1.0);
+{  
+    gl_Position = vec4(Position.x * gScale, Position.y * gScale, Position.z * gScale, 1.0);
 	Colour0 = Colour;
 }
