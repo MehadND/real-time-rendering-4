@@ -32,16 +32,21 @@ void GameObject::setShader(ShaderTechnique* s)
 	gameObjectProperties.shader = s;
 }
 
-	static float deltax = 0.0f;
-	static float rot = 0.0f;
-	static float scaleVal = 0.0f;
-void GameObject::render()
+
+void GameObject::setTranslate(float translateValue)
 {
-	gameObjectProperties.shader->useShader();
+	// do some translation here...
+	translator = translate(mat4(1.0f), vec3(translateValue, 0.0f, 0.0f));
+}
 
-	// Update the gTransform variable in the Vertex Shade on the GPU
+void GameObject::setScale(float scaleValue)
+{
+	// do some scaling here...
+	scaler = scale(mat4(1.0f), vec3(cosf(scaleValue) / 2, sinf(scaleValue) / 2, 1.0f));
+}
 
-
+void GameObject::setTransform()
+{
 	//rot += 0.5f;
 
 	//if (deltax <= 0.5f)
@@ -56,47 +61,30 @@ void GameObject::render()
 	//	scaler = scale(mat4(1.0f), vec3(cosf(scaleVal), sinf(scaleVal), 1.0f));
 	//}
 
-	if (deltax <= 0.8f)
+	if (translateValue <= 0.8f)
 	{
-		deltax += 0.009f;
+		translateValue += 0.009f;
 	}
-	scaleVal += 0.01f;
-	translator = translate(mat4(1.0f), vec3(deltax, 0.0f, 0.0f));
-	scaler = scale(mat4(1.0f), vec3(cosf(scaleVal), sinf(scaleVal), 1.0f));
+	scaleValue += 0.01f;
 
+	setTranslate(translateValue);
+	setScale(scaleValue);
+	//setRotation(rotationValue);
 
 	finalTrans = scaler * translator;
 	glUniformMatrix4fv(gTransformLocation, 1, GL_FALSE, &finalTrans[0][0]);
+}
 
+void GameObject::render()
+{
+	gameObjectProperties.shader->useShader();
 
-	gTransformLocation = glGetUniformLocation(gameObjectProperties.shader->shaderProgram, "gTransform");
+	// set custom transformations
+	setTransform();
+
+	// Update the gTransform variable in the Vertex Shade on the GPU
+	gTransformLocation = glGetUniformLocation(gameObjectProperties.shader->getShaderProgram(), "gTransform");
 	assert(gTransformLocation != 0xFFFFFFFF);
-	
-
-	/*
-	
-    // Update the gTransform variable in the Vertex Shade on the GPU
-    mat4 trans = mat4(1.0f);
-    mat4 rotat = mat4(1.0f);
-    mat4 sca = mat4(1.0f);
-
-    static float deltax = 0.0f;
-    deltax += 0.005f;
-    if(deltax <= 0.5f)
-        trans = translate(mat4(1.0f), vec3(deltax, 0.0f, 0.0f));
-    else
-        trans = translate(mat4(1.0f), vec3(0.5f, 0.0f, 0.0f));
-
-    static float rot = 0.0f;
-    rot += 0.5f;
-    rotat = rotate(mat4(1.0f), rot, vec3(0.0f, 1.0f, 0.0f));
-
-    sca = scale(mat4(1.0f), vec3(0.5f, 0.5f, 1.0f));
-
-    mat4 full =  trans * rotat * sca;
-    glUniformMatrix4fv(gTransformLocation, 1, GL_FALSE, &full[0][0]);
-	*/
-
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);

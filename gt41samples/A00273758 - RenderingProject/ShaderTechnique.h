@@ -22,10 +22,11 @@ using namespace glm;
 class ShaderTechnique
 {
 public:
-	GLuint shaderProgram;
 
 	// default constructor
 	ShaderTechnique();
+
+	GLuint getShaderProgram();
 
 	// reads (shader) file and returns the content of file as a string
 	string readFile(string fileName);
@@ -40,6 +41,7 @@ public:
 	void useShader();
 
 private:
+	GLuint shaderProgram;
 
 };
 

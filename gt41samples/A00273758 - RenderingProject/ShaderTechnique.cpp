@@ -100,3 +100,8 @@ void ShaderTechnique::useShader()
 {
 	glUseProgram(shaderProgram);
 }
+
+GLuint ShaderTechnique::getShaderProgram()
+{
+	return shaderProgram;
+}
