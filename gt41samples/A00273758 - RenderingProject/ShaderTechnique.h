@@ -26,6 +26,7 @@ public:
 	// default constructor
 	ShaderTechnique();
 
+	// getter method for saher program
 	GLuint getShaderProgram();
 
 	// reads (shader) file and returns the content of file as a string

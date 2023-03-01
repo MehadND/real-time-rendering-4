@@ -27,19 +27,19 @@ private:
 
 	Properties gameObjectProperties;
 
-	GLuint gTransformLocation;
-
 	mat4 finalTrans = mat4(1.0f);
 	mat4 translator = mat4(1.0f);
 	mat4 rotator = mat4(1.0f);
 	mat4 scaler = mat4(1.0f);
 
-	float translateValue, scaleValue;
 
 public:
+
+	GLuint gTransformLocation;
+
+	
 	// default constructor
 	GameObject();
-
 
 	// Creates a buffer based on the array of vertices passed into the function
 	void createVertexBuffer(Properties* properties, int numverts);
@@ -51,10 +51,10 @@ public:
 	void setShader(ShaderTechnique* s);
 
 	// sets a (custom) translation
-	void setTranslate(float translateValue);
+	void setTranslate(float translateXValue, float translateYValue, float translateZValue);
 
 	// sets a (custom) scaling of an object
-	void setScale(float scaleValue);
+	void setScale(float scaleXValue, float scaleYValue, float scaleZValue);
 
 	// sets the order of the transformation 
 	void setTransform();

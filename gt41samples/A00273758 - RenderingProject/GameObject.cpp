@@ -33,16 +33,16 @@ void GameObject::setShader(ShaderTechnique* s)
 }
 
 
-void GameObject::setTranslate(float translateValue)
+void GameObject::setTranslate(float translateXValue, float translateYValue, float translateZValue)
 {
 	// do some translation here...
-	translator = translate(mat4(1.0f), vec3(translateValue, 0.0f, 0.0f));
+	translator = translate(mat4(1.0f), vec3(translateXValue, translateYValue, translateZValue));
 }
 
-void GameObject::setScale(float scaleValue)
+void GameObject::setScale(float scaleXValue, float scaleYValue, float scaleZValue)
 {
 	// do some scaling here...
-	scaler = scale(mat4(1.0f), vec3(cosf(scaleValue) / 2, sinf(scaleValue) / 2, 1.0f));
+	scaler = scale(mat4(1.0f), vec3(cosf(scaleXValue) / 2, sinf(scaleYValue) / 2, scaleZValue));
 }
 
 void GameObject::setTransform()
@@ -61,16 +61,10 @@ void GameObject::setTransform()
 	//	scaler = scale(mat4(1.0f), vec3(cosf(scaleVal), sinf(scaleVal), 1.0f));
 	//}
 
-	if (translateValue <= 0.8f)
-	{
-		translateValue += 0.009f;
-	}
-	scaleValue += 0.01f;
-
-	setTranslate(translateValue);
-	setScale(scaleValue);
-	//setRotation(rotationValue);
-
+	/* 
+		order of transformation
+		right ==> left
+	*/
 	finalTrans = scaler * translator;
 	glUniformMatrix4fv(gTransformLocation, 1, GL_FALSE, &finalTrans[0][0]);
 }

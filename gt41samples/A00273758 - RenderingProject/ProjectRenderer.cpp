@@ -24,13 +24,14 @@ ShaderTechnique shaderA;
 
 GameObject objB;
 ShaderTechnique shaderB;
+float translateValue, scaleValue;
 
 static void renderSceneCallBack()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	objA.render();
-	//objB.render();
+	objB.render();
 
 	// Render a line
 	//glBegin(GL_LINES);
@@ -38,6 +39,21 @@ static void renderSceneCallBack()
 	//glVertex3f(-1.0f, -2.0f, 0.0f);
 	//glVertex3f(3.0f, -2.0f, 0.0f);
 	//glEnd();
+
+	if (translateValue <= 0.8f)
+	{
+		translateValue += 0.009f;
+	}
+	scaleValue += 0.01f;
+
+	objA.setTranslate(translateValue, 0, 0);
+	objA.setScale(scaleValue, scaleValue, 0);
+	//setRotation(rotationValue);
+
+	//objA.setTransform(objA.scaler, objA.translator, mat4(0.0f));
+
+	objB.setTranslate(0, translateValue, 0);
+	objB.setScale(0, scaleValue*2, 0);
 
 	glutSwapBuffers();
 }
@@ -57,15 +73,15 @@ static void createGameObjects()
 	objA.createVertexBuffer(objA_Data, numVerts);
 	objA.setShader(&shaderA);
 
-	//Properties objB_Data[numVerts] = {
-	//	{vec3(-0.5f, -0.5f, 0.0f), vec4(1.0f, 0.0f, 0.0f, 1.0f)},
-	//	{vec3(0.5f, -0.5f, 0.0f),  vec4(0.0f, 1.0f, 0.0f, 1.0f)},
-	//	{vec3(0.0f, 0.5f, 0.0f),  vec4(0.0f, 0.0f, 1.0f, 1.0f)}
-	//};
+	Properties objB_Data[numVerts] = {
+		{vec3(-0.5f, -0.5f, 0.0f), vec4(0.5f, 1.0f, 0.0f, 1.0f)},
+		{vec3(0.5f, -0.5f, 0.0f),  vec4(0.0f, 1.0f, 0.0f, 1.0f)},
+		{vec3(0.0f, 0.5f, 0.0f),  vec4(0.8f, 0.0f, 1.0f, 1.0f)}
+	};
 
-	//objB.setPrimitiveMode(GL_TRIANGLES);
-	//objB.createVertexBuffer(objB_Data, numVerts);
-	//objB.setShader(&shaderB);
+	objB.setPrimitiveMode(GL_TRIANGLES);
+	objB.createVertexBuffer(objB_Data, numVerts);
+	objB.setShader(&shaderA);
 }
 
 static void processMouse(int button, int state, int x, int y)
