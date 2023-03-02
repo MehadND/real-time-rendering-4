@@ -50,10 +50,8 @@ static void renderSceneCallBack()
 	objA.setScale(scaleValue, scaleValue, 0);
 	//setRotation(rotationValue);
 
-	//objA.setTransform(objA.scaler, objA.translator, mat4(0.0f));
-
 	objB.setTranslate(0, translateValue, 0);
-	objB.setScale(0, scaleValue*2, 0);
+	objB.setScale(0, scaleValue*4, 0);
 
 	glutSwapBuffers();
 }
@@ -88,16 +86,18 @@ static void processMouse(int button, int state, int x, int y)
 {
 	if (button == GLUT_LEFT_BUTTON)
 	{
-		printf("Left Mouse Button Clicked");
+		//printf("Left Mouse Button Clicked");
 		glPolygonMode(GL_FRONT, GL_LINE);
 		glPolygonMode(GL_BACK, GL_LINE);
 	}
 	else if (button == GLUT_RIGHT_BUTTON)
 	{
-		printf("Right Mouse Button Clicked");
+		//printf("Right Mouse Button Clicked");
 		glPolygonMode(GL_FRONT, GL_FILL);
 		glPolygonMode(GL_BACK, GL_FILL);
 	}
+
+	printf("\nMouse X --> %d,	Mouse Y --> %d\n", x, y);
 }
 
 static void initializeGlutCallbacks()
