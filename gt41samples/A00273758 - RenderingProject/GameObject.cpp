@@ -34,36 +34,63 @@ void GameObject::setShader(ShaderTechnique* s)
 
 void GameObject::setTranslate(float translateXValue, float translateYValue, float translateZValue)
 {
-	// do some translation here...
-	translator = translate(mat4(1.0f), vec3(translateXValue, translateYValue, translateZValue));
+	float oldX{}, oldY{}, oldZ{};
+	// checks to see if there is any change in translation then set to new transform
+	if (translateXValue != oldX || translateYValue != oldY || translateZValue != oldZ)
+	{
+		// do some translation here...
+		translator = translate(mat4(1.0f), vec3(translateXValue, translateYValue, translateZValue));
+		isSetTransform = true;
+	}
+	oldX = translateXValue;
+	oldY = translateYValue;
+	oldZ = translateZValue;
 }
 
 void GameObject::setScale(float scaleXValue, float scaleYValue, float scaleZValue)
 {
-	// do some scaling here...
-	scaler = scale(mat4(1.0f), vec3(cosf(scaleXValue) / 2, sinf(scaleYValue) / 2, scaleZValue));
+	float oldX{}, oldY{}, oldZ{};
+	// checks to see if there is any change in scale then set to new transform
+	if (scaleXValue != oldX || scaleYValue != oldY || scaleZValue != oldZ)
+	{
+		// do some scaling here...
+		scaler = scale(mat4(1.0f), vec3(cosf(scaleXValue) / 2, sinf(scaleYValue) / 2, scaleZValue));
+		isSetTransform = true;
+	}
+	oldX = scaleXValue;
+	oldY = scaleYValue;
+	oldZ = scaleZValue;
 }
 
 void GameObject::setTransform()
 {
-	/* 
-		order of transformation
-		right ==> left
-	*/
+	printf("\n[SETTING TRANSFORM]...");
+	
+	// order of transformation: right ==> left
 	finalTrans = scaler * translator;
+}
+
+void GameObject::applyTransform()
+{
 	glUniformMatrix4fv(gTransformLocation, 1, GL_FALSE, &finalTrans[0][0]);
+
+	// Update the gTransform variable in the Vertex Shade on the GPU
+	gTransformLocation = glGetUniformLocation(gameObjectProperties.shader->getShaderProgram(), "gTransform");
+	assert(gTransformLocation != 0xFFFFFFFF);
 }
 
 void GameObject::render()
 {
 	gameObjectProperties.shader->useShader();
 
-	// set custom transformations
-	setTransform();
+	if (isSetTransform)
+	{
+		// set custom transformations
+		setTransform();
+		isSetTransform = false;
+	}
 
-	// Update the gTransform variable in the Vertex Shade on the GPU
-	gTransformLocation = glGetUniformLocation(gameObjectProperties.shader->getShaderProgram(), "gTransform");
-	assert(gTransformLocation != 0xFFFFFFFF);
+	applyTransform();
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);

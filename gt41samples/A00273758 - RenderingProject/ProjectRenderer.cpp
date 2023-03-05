@@ -38,7 +38,7 @@ static void renderSceneCallBack()
 	// only doing translation when required (i.e. when user presses t)
 	if (isTranslate)
 	{
-		printf("\nDoing Translation...\n");
+		printf("\nDoing Translation...");
 		if (translateValue <= 0.8f)
 		{
 			translateValue += 0.009f;
@@ -51,7 +51,7 @@ static void renderSceneCallBack()
 	// only doing scaling when required (i.e. when user presses s)
 	if (isScale)
 	{
-		printf("\nDoing Scaling...\n");
+		printf("\nDoing Scaling...");
 		scaleValue += 0.01f;
 		objA.setScale(scaleValue, scaleValue, 0);
 		objB.setScale(0, scaleValue*4, 0);
@@ -71,15 +71,15 @@ static void createGameObjects()
 		{vec3(0.0f, 0.5f, 0.0f),  vec4(0.0f, 0.0f, 1.0f, 1.0f)}
 	};
 
-	objA.setPrimitiveMode(GL_TRIANGLES);
-	objA.createVertexBuffer(objA_Data, numVerts);
-	objA.setShader(&shaderA);
-
 	Properties objB_Data[numVerts] = {
 		{vec3(-0.5f, -0.5f, 0.0f), vec4(0.5f, 1.0f, 0.0f, 1.0f)},
 		{vec3(0.5f, -0.5f, 0.0f),  vec4(0.0f, 1.0f, 0.0f, 1.0f)},
 		{vec3(0.0f, 0.5f, 0.0f),  vec4(0.8f, 0.0f, 1.0f, 1.0f)}
 	};
+
+	objA.setPrimitiveMode(GL_TRIANGLES);
+	objA.createVertexBuffer(objA_Data, numVerts);
+	objA.setShader(&shaderA);
 
 	objB.setPrimitiveMode(GL_TRIANGLES);
 	objB.createVertexBuffer(objB_Data, numVerts);

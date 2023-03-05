@@ -32,6 +32,8 @@ private:
 	mat4 rotator = mat4(1.0f);
 	mat4 scaler = mat4(1.0f);
 
+	bool isSetTransform = true;
+
 
 public:
 
@@ -58,6 +60,8 @@ public:
 
 	// sets the order of the transformation and links the cpu uniform variable with gpu/shader's uniform variable
 	void setTransform();
+
+	void applyTransform();
 
 	// renders the gameobject onto the screen
 	void render();
