@@ -32,14 +32,11 @@ private:
 	mat4 rotator = mat4(1.0f);
 	mat4 scaler = mat4(1.0f);
 
+	GLuint gTransformLocation;
+	
 	bool isSetTransform = true;
 
-
 public:
-
-	GLuint gTransformLocation;
-
-	
 	// default constructor
 	GameObject();
 

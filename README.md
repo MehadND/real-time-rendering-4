@@ -124,21 +124,14 @@ public:
 
 The goal of the part 2 of the project is to refactor this code so that you:
 
-- Update your GameObject or Renderable to also encapsulate the scale,
-
-position and rotation of a collection of vertices (3D object).
+- Update your GameObject or Renderable to also encapsulate the scale, position and rotation of a collection of vertices (3D object).
 
 - Create a Camera object which encapsulates the functionality of the camera.
 
-- Update your GameObject so that you can create the vertex buffer object from
-
-the triangles specified in an OBJ file.
+- Update your GameObject so that you can create the vertex buffer object from the triangles specified in an OBJ file.
 
 - Create a basic interactive scene demonstrating all features of your project.
-
-* For example navigating around a simple scene of objects loaded from
-
-obj files.
+	* For example navigating around a simple scene of objects loaded from obj files.
 
 </details>
 
@@ -220,9 +213,9 @@ static void createGameObjects()
 }
 ```
 
-Properties struct
+- Properties struct
 ```cpp
-- struct Properties
+struct Properties
 {
 	vec3		pos;
 	vec4		color;
