@@ -32,7 +32,6 @@ void GameObject::setShader(ShaderTechnique* s)
 	gameObjectProperties.shader = s;
 }
 
-
 void GameObject::setTranslate(float translateXValue, float translateYValue, float translateZValue)
 {
 	// do some translation here...
@@ -47,20 +46,6 @@ void GameObject::setScale(float scaleXValue, float scaleYValue, float scaleZValu
 
 void GameObject::setTransform()
 {
-	//rot += 0.5f;
-
-	//if (deltax <= 0.5f)
-	//{
-	//	rotator = rotate(mat4(1.0f), rot, vec3(0.0f, 1.0f, 0.0f));
-	//	scaler = scale(mat4(1.0f), vec3(0.1f, 0.1f, 1.0f));
-	//}
-	//else
-	//{
-	//	translator = translate(mat4(1.0f), vec3(0.5f, 0.0f, 0.0f));
-	//	rotator = rotate(mat4(1.0f), rot, vec3(1.0f, 0.0f, 0.0f));
-	//	scaler = scale(mat4(1.0f), vec3(cosf(scaleVal), sinf(scaleVal), 1.0f));
-	//}
-
 	/* 
 		order of transformation
 		right ==> left

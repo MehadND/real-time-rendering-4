@@ -24,7 +24,9 @@ ShaderTechnique shaderA;
 
 GameObject objB;
 ShaderTechnique shaderB;
+
 float translateValue, scaleValue;
+bool isTranslate, isScale;
 
 static void renderSceneCallBack()
 {
@@ -33,25 +35,27 @@ static void renderSceneCallBack()
 	objA.render();
 	objB.render();
 
-	// Render a line
-	//glBegin(GL_LINES);
-	//glColor3f(1.0, 1.0, 1.0); // White
-	//glVertex3f(-1.0f, -2.0f, 0.0f);
-	//glVertex3f(3.0f, -2.0f, 0.0f);
-	//glEnd();
-
-	if (translateValue <= 0.8f)
+	// only doing translation when required (i.e. when user presses t)
+	if (isTranslate)
 	{
-		translateValue += 0.009f;
+		printf("\nDoing Translation...\n");
+		if (translateValue <= 0.8f)
+		{
+			translateValue += 0.009f;
+		}
+
+		objA.setTranslate(translateValue, 0, 0);
+		objB.setTranslate(0, translateValue, 0);
 	}
-	scaleValue += 0.01f;
 
-	objA.setTranslate(translateValue, 0, 0);
-	objA.setScale(scaleValue, scaleValue, 0);
-	//setRotation(rotationValue);
-
-	objB.setTranslate(0, translateValue, 0);
-	objB.setScale(0, scaleValue*4, 0);
+	// only doing scaling when required (i.e. when user presses s)
+	if (isScale)
+	{
+		printf("\nDoing Scaling...\n");
+		scaleValue += 0.01f;
+		objA.setScale(scaleValue, scaleValue, 0);
+		objB.setScale(0, scaleValue*4, 0);
+	}
 
 	glutSwapBuffers();
 }
@@ -84,6 +88,7 @@ static void createGameObjects()
 
 static void processMouse(int button, int state, int x, int y)
 {
+	printf("\nMouse X --> %d,	Mouse Y --> %d\n", x, y);
 	if (button == GLUT_LEFT_BUTTON)
 	{
 		//printf("Left Mouse Button Clicked");
@@ -97,7 +102,38 @@ static void processMouse(int button, int state, int x, int y)
 		glPolygonMode(GL_BACK, GL_FILL);
 	}
 
-	printf("\nMouse X --> %d,	Mouse Y --> %d\n", x, y);
+}
+
+// keyboard (key) down function
+static void keyboardCallback(unsigned char key, int x, int y)
+{
+	switch (key)
+	{
+		case 't':
+			isTranslate = true;
+			break;
+		case 's':
+			isScale = true;
+			break;
+		default:
+			break;
+	}
+}
+
+// keyboard (key) up function
+static void keyboardUpCallback(unsigned char key, int x, int y)
+{
+	switch (key)
+	{
+		case 't':
+			isTranslate = false;
+			break;
+		case 's':
+			isScale = false;
+			break;
+		default:
+			break;
+	}
 }
 
 static void initializeGlutCallbacks()
@@ -105,14 +141,16 @@ static void initializeGlutCallbacks()
 	glutDisplayFunc(renderSceneCallBack);
 	glutIdleFunc(renderSceneCallBack);
 	glutMouseFunc(processMouse);
+	glutKeyboardFunc(keyboardCallback);
+	glutKeyboardUpFunc(keyboardUpCallback);
 }
 
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGBA);
-    glutInitWindowSize(1024, 768);
-    glutInitWindowPosition(100, 100);
+    glutInitWindowSize(windowWidth, windowHeight);
+    glutInitWindowPosition(windowPos_X, windowPos_Y);
 	glutCreateWindow(windowTitle);
 
 
@@ -128,7 +166,6 @@ int main(int argc, char** argv)
 
 	// build (all) shaders	
 	shaderA.buildShader("vertexShader.glsl", "fragmentShader.glsl");
-	//shaderB.buildShader("vertexShader2.glsl", "fragmentShader2.glsl");
 
 	glClearColor(0.07f, 0.08f, 0.13f, 1.0f);
 

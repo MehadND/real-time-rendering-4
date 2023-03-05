@@ -56,7 +56,7 @@ public:
 	// sets a (custom) scaling of an object
 	void setScale(float scaleXValue, float scaleYValue, float scaleZValue);
 
-	// sets the order of the transformation 
+	// sets the order of the transformation and links the cpu uniform variable with gpu/shader's uniform variable
 	void setTransform();
 
 	// renders the gameobject onto the screen
