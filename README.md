@@ -3,8 +3,6 @@
 
 <br/>
 
-  
-
 <h2>Rendering Engine Project</h2>
 
   
@@ -384,10 +382,16 @@ void GameObject::render()
 
   ### After
   
-| <p><video src="https://user-images.githubusercontent.com/34424878/222951473-858de257-d30f-4849-b6ff-5cc8d9804b39.mp4" width=100 height=100/></p>  |
+| ![Part 2 - After](https://github.com/MehadND/real-time-rendering-4/blob/8e4917f0f6c4bab29cb68d2cd5cd0136c30174f4/gt41samples/A00273758%20-%20RenderingProject/part2.gif)  |
 |---|
 | *Please note the pauses in between are happening because the transform is done when it is necessary, in my project once user presses 't' or 's' it would do some transform, hence the little pauses in between* |
 	
+<details>
+<summary>Video Control</summary>
+
+https://user-images.githubusercontent.com/34424878/222952716-26ab3859-08ac-40c4-a339-9d617e92cd14.mp4
+
+</details>	
 
   </details> 
 	
