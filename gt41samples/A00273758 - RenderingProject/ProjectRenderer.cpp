@@ -12,8 +12,8 @@ File Name: ProjectRenderer.cpp
 #include "GameObject.h"
 
 // initialize some window properties
-unsigned int windowWidth = 800;
-unsigned int windowHeight = 500;
+static unsigned int windowWidth = 800;
+static unsigned int windowHeight = 500;
 unsigned int windowPos_X = 800;
 unsigned int windowPos_Y = 400;
 const char* windowTitle = "A00273758: Rendering Project - Part 1 & 2";
@@ -27,6 +27,9 @@ ShaderTechnique shaderB;
 
 float translateValue, scaleValue;
 bool isTranslate, isScale;
+
+GLuint gWorldToViewTransformLocation;
+GLuint gProjectionTransformLocation;
 
 static void renderSceneCallBack()
 {
@@ -58,6 +61,24 @@ static void renderSceneCallBack()
 	}
 
 	glutSwapBuffers();
+}
+
+static void sceneSetup(float windowWidth, float windowHeight)
+{
+	// Create our world space to view space transformation matrix
+	mat4 worldToViewTransform = lookAt(
+		vec3(0.0f, 0.0f, 10.0f), // The position of your camera, in world space
+		vec3(0.0f, 0.0f, 0.0f), // where you want to look at, in world space
+		vec3(0.0f, 1.0f, 0.0f)  // Camera up direction (set to 0,-1,0 to look upside-down)
+	);
+
+	// Create out projection transform
+	mat4 projectionTransform = perspective(45.0f, (float)windowWidth / (float)windowHeight, 1.0f, 100.0f);
+
+	// Update the transforms in the shader program on the GPU
+	glUniformMatrix4fv(gWorldToViewTransformLocation, 1, GL_FALSE, &worldToViewTransform[0][0]);
+	glUniformMatrix4fv(gProjectionTransformLocation, 1, GL_FALSE, &projectionTransform[0][0]);
+
 }
 
 // Create GameObjects and its vertex buffer as well as sets the shader for the gameObject
@@ -169,8 +190,9 @@ int main(int argc, char** argv)
 
 	glClearColor(0.07f, 0.08f, 0.13f, 1.0f);
 
-	createGameObjects();	// creates set of gameObjects
+	sceneSetup(windowWidth, windowHeight);
 
+	createGameObjects();	// creates set of gameObjects
 
 	glutMainLoop();
 

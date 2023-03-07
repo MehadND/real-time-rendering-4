@@ -5,10 +5,21 @@ layout (location = 1) in vec4 Colour;
 
 out vec4 Colour0;
 
-uniform mat4 gTransform;
-                                                                   
+uniform mat4 gModelToWorldTransform;
+uniform mat4 gWorldToViewTransform;
+uniform mat4 gProjectionTransform;
+
 void main()
 {   
-    gl_Position = gTransform * vec4(Position.x, Position.y, Position.z, 1.0);
+    vec4 vertexPositionInModelSpace = vec4(Position, 1);
+
+	vec4 vertexInWorldSpace = gModelToWorldTransform * vertexPositionInModelSpace;
+
+	vec4 vertexInCameraSpace = gWorldToViewTransform * vertexInWorldSpace;
+
+	vec4 vertexInClipSpace = gProjectionTransform * vertexInCameraSpace;
+
+	gl_Position = vertexInClipSpace;
+
 	Colour0 = Colour;
 }

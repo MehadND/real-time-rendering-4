@@ -72,11 +72,11 @@ void GameObject::setTransform()
 
 void GameObject::applyTransform()
 {
-	glUniformMatrix4fv(gTransformLocation, 1, GL_FALSE, &finalTrans[0][0]);
+	glUniformMatrix4fv(gModelToWorldTransformLocation, 1, GL_FALSE, &finalTrans[0][0]);
 
 	// Update the gTransform variable in the Vertex Shade on the GPU
-	gTransformLocation = glGetUniformLocation(gameObjectProperties.shader->getShaderProgram(), "gTransform");
-	assert(gTransformLocation != 0xFFFFFFFF);
+	gModelToWorldTransformLocation = glGetUniformLocation(gameObjectProperties.shader->getShaderProgram(), "gModelToWorldTransform");
+	assert(gModelToWorldTransformLocation != 0xFFFFFFFF);
 }
 
 void GameObject::doTrans(ObjectTransformation* objTransformation)
@@ -91,27 +91,6 @@ void GameObject::doTrans(ObjectTransformation* objTransformation)
 
 void GameObject::render()
 {
-	gameObjectProperties.shader->useShader();
-
-	ObjectTransformation transA[3] = {
-		{vec3(1.0f, 0.0f,0.0f)},
-		{vec3(0.0f, 0.0f,0.0f)},
-		{vec3(0.0f, 1.0f,0.0f)}
-	};
-
-	doTrans(&transA[0]);
-	doTrans(&transA[1]);
-	doTrans(&transA[2]);
-
-	if (isSetTransform)
-	{
-		// set custom transformations
-		//setTransform();
-		isSetTransform = false;
-	}
-
-	//applyTransform();
-
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	//glEnableVertexAttribArray(2);
@@ -121,6 +100,17 @@ void GameObject::render()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Properties), 0);
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Properties), (const GLvoid*)12);
 	//glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 40, (const GLvoid*)28);
+
+	gameObjectProperties.shader->useShader();
+
+	if (isSetTransform)
+	{
+		// set custom transformations
+		//setTransform();
+		isSetTransform = false;
+	}
+
+	applyTransform();
 
 	glDrawArrays(GL_TRIANGLES, 0, numOfVertices);
 

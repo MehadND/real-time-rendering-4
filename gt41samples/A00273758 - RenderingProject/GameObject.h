@@ -33,6 +33,8 @@ private:
 	mat4 scaler = mat4(1.0f);
 
 	GLuint gTransformLocation;
+
+	GLuint gModelToWorldTransformLocation;
 	
 	bool isSetTransform = true;
 

@@ -42,9 +42,14 @@ using namespace glm;
 const int windowWidth = 1024; 
 const int windowHeight = 768;
 
-GLuint VBO;
+GLuint VBO1; 
+GLuint VBO2;
+GLuint VBO3;
+
 const int NUMVERTS = 3;
-GLuint gModelToWorldTransformLocation;
+GLuint gModelToWorldTransformLocation1;
+GLuint gModelToWorldTransformLocation2;
+GLuint gModelToWorldTransformLocation3;
 GLuint gWorldToViewTransformLocation;
 GLuint gProjectionTransformLocation;
 
@@ -77,7 +82,7 @@ static void renderSceneCallBack()
 
     glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO1);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(SimpleVertex), 0);
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(SimpleVertex), (const GLvoid*)12);
 
@@ -97,11 +102,79 @@ static void renderSceneCallBack()
 
 	mat4 modelToWorldTransform = trans * rot * scalem;
 
-	glUniformMatrix4fv(gModelToWorldTransformLocation, 1, GL_FALSE, &modelToWorldTransform[0][0]);
+	glUniformMatrix4fv(gModelToWorldTransformLocation1, 1, GL_FALSE, &modelToWorldTransform[0][0]);
 
 	glDrawArrays(GL_TRIANGLES, 0, NUMVERTS);
 
     glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+
+
+
+	// Update the transforms in the shader program on the GPU
+	glUniformMatrix4fv(gWorldToViewTransformLocation, 1, GL_FALSE, &worldToViewTransform[0][0]);
+	glUniformMatrix4fv(gProjectionTransformLocation, 1, GL_FALSE, &projectionTransform[0][0]);
+
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO2);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(SimpleVertex), 0);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(SimpleVertex), (const GLvoid*)12);
+
+	// Create a new model to world transform
+	mat4 scalem2 = mat4(1.0f);
+	scalem2 = scale(scalem2, vec3(0.5f, 0.5f, 0.5f));
+
+	static float angle2 = 0.0f;
+	angle2 += 1.0f;
+	mat4 rot2 = mat4(1.0f);
+	rot2 = rotate(rot2, angle2, vec3(0.0f, 1.0f, 0.0f));
+
+	static float y2 = 0.0f;
+	y2 += 0.01f;
+	mat4 trans2 = mat4(1.0f);
+	trans2 = translate(trans2, vec3(0.0f, y2, 0.0f));
+
+	mat4 modelToWorldTransform2 = trans2 * rot2 * scalem2;
+
+	glUniformMatrix4fv(gModelToWorldTransformLocation2, 1, GL_FALSE, &modelToWorldTransform2[0][0]);
+
+	glDrawArrays(GL_TRIANGLES, 0, NUMVERTS);
+
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+
+	// Update the transforms in the shader program on the GPU
+	glUniformMatrix4fv(gWorldToViewTransformLocation, 1, GL_FALSE, &worldToViewTransform[0][0]);
+	glUniformMatrix4fv(gProjectionTransformLocation, 1, GL_FALSE, &projectionTransform[0][0]);
+
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO3);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(SimpleVertex), 0);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(SimpleVertex), (const GLvoid*)12);
+
+	// Create a new model to world transform
+	mat4 scalem3 = mat4(1.0f);
+	scalem3 = scale(scalem3, vec3(0.5f, 0.5f, 0.5f));
+
+	static float angle3 = 0.0f;
+	angle3 += 1.0f;
+	mat4 rot3 = mat4(1.0f);
+	rot3 = rotate(rot3, angle3, vec3(0.0f, 1.0f, 0.0f));
+
+	static float y3 = 0.0f;
+	y3 += 0.01f;
+	mat4 trans3 = mat4(1.0f);
+	trans3 = translate(trans3, vec3(0.0f, y3, 0.0f));
+
+	mat4 modelToWorldTransform3 = trans3 * rot3 * scalem3;
+
+	glUniformMatrix4fv(gModelToWorldTransformLocation3, 1, GL_FALSE, &modelToWorldTransform3[0][0]);
+
+	glDrawArrays(GL_TRIANGLES, 0, NUMVERTS);
+
+	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 
     glutSwapBuffers();
@@ -117,16 +190,38 @@ static void createVertexBuffer()
 {
 	// Create some vertices to put in our VBO.
 	// Create vertex buffer
-	SimpleVertex vertices[] =
+	SimpleVertex verticesA[] =
 	{
 		{vec3(0.0f, 1.0f, 0.0f), vec4(1.0f, 1.0f, 1.0f, 1.0f)},
 		{vec3(-1.0f, 0.0f, 0.0f), vec4(1.0f, 1.0f, 1.0f, 1.0f)},
 		{vec3( 1.0f,0.0f, 0.0f), vec4(1.0f, 1.0f, 1.0f, 1.0f)}
 	};
     
- 	glGenBuffers(1, &VBO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(SimpleVertex) * NUMVERTS, vertices, GL_STATIC_DRAW);
+ 	glGenBuffers(1, &VBO1);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO1);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(SimpleVertex) * NUMVERTS, verticesA, GL_STATIC_DRAW);
+
+	SimpleVertex verticesB[] =
+	{
+		{vec3(-5.0f, 1.0f, 0.0f), vec4(1.0f, 0.0f, 0.0f, 1.0f)},
+		{vec3(-7.0f, 0.0f, 0.0f), vec4(0.0f, 1.0f, 0.0f, 1.0f)},
+		{vec3(-6.0f,0.0f, 0.0f), vec4(0.0f, 0.0f, 1.0f, 1.0f)}
+	};
+
+	glGenBuffers(1, &VBO2);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO2);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(SimpleVertex) * NUMVERTS, verticesB, GL_STATIC_DRAW);
+
+	SimpleVertex verticesC[] =
+	{
+		{vec3(5.0f, 1.0f, 0.0f), vec4(1.0f, 0.0f, 0.0f, 1.0f)},
+		{vec3(7.0f, 0.0f, 0.0f), vec4(1.0f, 1.0f, 0.0f, 1.0f)},
+		{vec3(6.0f,0.0f, 0.0f), vec4(0.0f, 1.0f, 1.0f, 1.0f)}
+	};
+
+	glGenBuffers(1, &VBO3);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO3);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(SimpleVertex) * NUMVERTS, verticesC, GL_STATIC_DRAW);
 }
 
 static void addShader(GLuint shaderProgram, const char* pShaderText, GLenum shaderType)
@@ -214,8 +309,12 @@ static void buildShaders()
 
     glUseProgram(shaderProgram);
 
-    gModelToWorldTransformLocation = glGetUniformLocation(shaderProgram, "gModelToWorldTransform");
-    assert(gModelToWorldTransformLocation != 0xFFFFFFFF);
+    gModelToWorldTransformLocation1 = glGetUniformLocation(shaderProgram, "gModelToWorldTransform");
+    assert(gModelToWorldTransformLocation1 != 0xFFFFFFFF);
+	gModelToWorldTransformLocation2 = glGetUniformLocation(shaderProgram, "gModelToWorldTransform");
+	assert(gModelToWorldTransformLocation2 != 0xFFFFFFFF);
+	gModelToWorldTransformLocation3 = glGetUniformLocation(shaderProgram, "gModelToWorldTransform");
+	assert(gModelToWorldTransformLocation3 != 0xFFFFFFFF);
     gWorldToViewTransformLocation = glGetUniformLocation(shaderProgram, "gWorldToViewTransform");
     assert(gWorldToViewTransformLocation != 0xFFFFFFFF);
     gProjectionTransformLocation = glGetUniformLocation(shaderProgram, "gProjectionTransform"); 
