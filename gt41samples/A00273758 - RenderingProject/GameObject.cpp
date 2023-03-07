@@ -79,18 +79,38 @@ void GameObject::applyTransform()
 	assert(gTransformLocation != 0xFFFFFFFF);
 }
 
+void GameObject::doTrans(ObjectTransformation* objTransformation)
+{
+	mat4 trans = translate(mat4(1.0f), objTransformation->trans);
+	glUniformMatrix4fv(gTransLocation, 1, GL_FALSE, &trans[0][0]);
+
+	// Update the gTransform variable in the Vertex Shade on the GPU
+	gTransLocation = glGetUniformLocation(gameObjectProperties.shader->getShaderProgram(), "gTransform");
+	assert(gTransLocation != 0xFFFFFFFF);
+}
+
 void GameObject::render()
 {
 	gameObjectProperties.shader->useShader();
 
+	ObjectTransformation transA[3] = {
+		{vec3(1.0f, 0.0f,0.0f)},
+		{vec3(0.0f, 0.0f,0.0f)},
+		{vec3(0.0f, 1.0f,0.0f)}
+	};
+
+	doTrans(&transA[0]);
+	doTrans(&transA[1]);
+	doTrans(&transA[2]);
+
 	if (isSetTransform)
 	{
 		// set custom transformations
-		setTransform();
+		//setTransform();
 		isSetTransform = false;
 	}
 
-	applyTransform();
+	//applyTransform();
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);

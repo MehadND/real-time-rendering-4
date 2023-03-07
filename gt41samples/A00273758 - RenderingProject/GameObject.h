@@ -36,6 +36,15 @@ private:
 	
 	bool isSetTransform = true;
 
+	GLuint gTransLocation;
+
+	struct ObjectTransformation
+	{
+		vec3 trans;
+		vec3 rot;
+		vec3 sca;
+	};
+
 public:
 	// default constructor
 	GameObject();
@@ -59,6 +68,8 @@ public:
 	void setTransform();
 
 	void applyTransform();
+
+	void doTrans(ObjectTransformation* objTransformation);
 
 	// renders the gameobject onto the screen
 	void render();
