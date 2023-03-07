@@ -99,6 +99,13 @@ void ShaderTechnique::buildShader(string vertexShaderPath, string fragmentShader
 void ShaderTechnique::useShader()
 {
 	glUseProgram(shaderProgram);
+
+	gModelToWorldTransformLocation = glGetUniformLocation(shaderProgram, "gModelToWorldTransform");
+	assert(gModelToWorldTransformLocation != 0xFFFFFFFF);
+	gWorldToViewTransformLocation = glGetUniformLocation(shaderProgram, "gWorldToViewTransform");
+	assert(gWorldToViewTransformLocation != 0xFFFFFFFF);
+	gProjectionTransformLocation = glGetUniformLocation(shaderProgram, "gProjectionTransform");
+	assert(gProjectionTransformLocation != 0xFFFFFFFF);
 }
 
 GLuint ShaderTechnique::getShaderProgram()

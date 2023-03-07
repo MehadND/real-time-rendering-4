@@ -22,7 +22,9 @@ using namespace glm;
 class ShaderTechnique
 {
 public:
-
+	GLuint gModelToWorldTransformLocation;
+	GLuint gWorldToViewTransformLocation;
+	GLuint gProjectionTransformLocation;
 	// default constructor
 	ShaderTechnique();
 

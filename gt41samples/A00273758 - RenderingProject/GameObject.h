@@ -32,20 +32,18 @@ private:
 	mat4 rotator = mat4(1.0f);
 	mat4 scaler = mat4(1.0f);
 
-	GLuint gTransformLocation;
-
-	GLuint gModelToWorldTransformLocation;
+	//GLuint gTransformLocation;
 	
 	bool isSetTransform = true;
 
-	GLuint gTransLocation;
+	/*GLuint gTransLocation;
 
 	struct ObjectTransformation
 	{
 		vec3 trans;
 		vec3 rot;
 		vec3 sca;
-	};
+	};*/
 
 public:
 	// default constructor
@@ -66,12 +64,13 @@ public:
 	// sets a (custom) scaling of an object
 	void setScale(float scaleXValue, float scaleYValue, float scaleZValue);
 
+	// sets a (custom) rotation of an object
+	void setRotation(float angle, float rotationXValue, float rotationYValue, float rotationZValue);
+
 	// sets the order of the transformation and links the cpu uniform variable with gpu/shader's uniform variable
 	void setTransform();
 
 	void applyTransform();
-
-	void doTrans(ObjectTransformation* objTransformation);
 
 	// renders the gameobject onto the screen
 	void render();

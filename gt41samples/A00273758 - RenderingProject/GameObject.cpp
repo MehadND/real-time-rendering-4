@@ -54,7 +54,7 @@ void GameObject::setScale(float scaleXValue, float scaleYValue, float scaleZValu
 	if (scaleXValue != oldX || scaleYValue != oldY || scaleZValue != oldZ)
 	{
 		// do some scaling here...
-		scaler = scale(mat4(1.0f), vec3(cosf(scaleXValue) / 2, sinf(scaleYValue) / 2, scaleZValue));
+		scaler = scale(mat4(1.0f), vec3(scaleXValue, scaleYValue, scaleZValue));
 		isSetTransform = true;
 	}
 	oldX = scaleXValue;
@@ -62,31 +62,31 @@ void GameObject::setScale(float scaleXValue, float scaleYValue, float scaleZValu
 	oldZ = scaleZValue;
 }
 
+void GameObject::setRotation(float angle, float rotationXValue, float rotationYValue, float rotationZValue)
+{
+	float oldX{}, oldY{}, oldZ{};
+	// checks to see if there is any change in scale then set to new transform
+	if (rotationXValue != oldX || rotationYValue != oldY || rotationZValue != oldZ)
+	{
+		// do some scaling here...
+		rotator = rotate(mat4(1.0f), angle, vec3(rotationXValue, rotationYValue, rotationZValue));
+		isSetTransform = true;
+	}
+	oldX = rotationXValue;
+	oldY = rotationYValue;
+	oldZ = rotationZValue;
+}
 void GameObject::setTransform()
 {
 	printf("\n[SETTING TRANSFORM]...");
 	
 	// order of transformation: right ==> left
-	finalTrans = scaler * translator;
+	finalTrans = rotator * scaler * translator;
 }
 
 void GameObject::applyTransform()
 {
-	glUniformMatrix4fv(gModelToWorldTransformLocation, 1, GL_FALSE, &finalTrans[0][0]);
-
-	// Update the gTransform variable in the Vertex Shade on the GPU
-	gModelToWorldTransformLocation = glGetUniformLocation(gameObjectProperties.shader->getShaderProgram(), "gModelToWorldTransform");
-	assert(gModelToWorldTransformLocation != 0xFFFFFFFF);
-}
-
-void GameObject::doTrans(ObjectTransformation* objTransformation)
-{
-	mat4 trans = translate(mat4(1.0f), objTransformation->trans);
-	glUniformMatrix4fv(gTransLocation, 1, GL_FALSE, &trans[0][0]);
-
-	// Update the gTransform variable in the Vertex Shade on the GPU
-	gTransLocation = glGetUniformLocation(gameObjectProperties.shader->getShaderProgram(), "gTransform");
-	assert(gTransLocation != 0xFFFFFFFF);
+	glUniformMatrix4fv(gameObjectProperties.shader->gModelToWorldTransformLocation, 1, GL_FALSE, &finalTrans[0][0]);
 }
 
 void GameObject::render()
@@ -106,7 +106,7 @@ void GameObject::render()
 	if (isSetTransform)
 	{
 		// set custom transformations
-		//setTransform();
+		setTransform();
 		isSetTransform = false;
 	}
 
