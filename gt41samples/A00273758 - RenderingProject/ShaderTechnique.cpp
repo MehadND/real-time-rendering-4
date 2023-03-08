@@ -10,7 +10,7 @@ ShaderTechnique::ShaderTechnique()
 
 }
 
-string ShaderTechnique::readFile(string fileName)
+string ShaderTechnique::readShaderFile(string fileName)
 {
 	ifstream file(fileName, ios::in);
 	if (file.is_open())
@@ -64,8 +64,8 @@ void ShaderTechnique::buildShader(string vertexShaderPath, string fragmentShader
 		AIT_ASSERT(0, "Error creating shader program\n");
 	}
 
-	string VS = readFile(vertexShaderPath);
-	string FS = readFile(fragmentShaderPath);
+	string VS = readShaderFile(vertexShaderPath);
+	string FS = readShaderFile(fragmentShaderPath);
 
 	addShader(shaderProgram, VS.c_str(), GL_VERTEX_SHADER);
 	addShader(shaderProgram, FS.c_str(), GL_FRAGMENT_SHADER);

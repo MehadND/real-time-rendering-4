@@ -11,6 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Helper.cpp" />
     <ClCompile Include="ProjectRenderer.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="ShaderTechnique.cpp" />

@@ -10,6 +10,9 @@ File Name: ProjectRenderer.cpp
 
 #include "ShaderTechnique.h"
 #include "GameObject.h"
+#include "Helper.cpp"
+
+#pragma region Some Global Variables
 
 // initialize some window properties
 static unsigned int windowWidth = 800;
@@ -37,104 +40,30 @@ glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
 glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
 glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
-static void renderSceneCallBack()
-{
-	glEnable(GL_DEPTH_TEST);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+bool isWireframe = false;
 
-	objA.render();
-	objB.render();
+#pragma endregion
 
-	// only doing translation when required (i.e. when user presses t)
-	if (isTranslate)
-	{
-		printf("\nDoing Translation...");
-		if (translateValue <= 0.8f)
-		{
-			translateValue += 0.009f;
-		}
-
-		objA.setTranslate(translateValue, 0, 0);
-		objB.setTranslate(0, translateValue, 0);
-	}
-
-	// only doing scaling when required (i.e. when user presses s)
-	if (isScale)
-	{
-		printf("\nDoing Scaling...");
-		scaleValue += 0.01f;
-		objA.setScale(scaleValue, scaleValue, 0);
-		objB.setScale(scaleValue, scaleValue, 0);
-	}
-
-	static float angle = 0.0f;
-	angle += 1.0f;
-	objA.setRotation(angle, 1.0f, 0.0f, 0.0f);
-
-	worldToViewTransform = lookAt(vec3(cameraPos.x, cameraPos.y, cameraPosZ), cameraPos + cameraFront, vec3(0.0f, 1.0f, 0.0f));
-
-	// Update the transforms in the shader program on the GPU
-	glUniformMatrix4fv(shaderA.gWorldToViewTransformLocation, 1, GL_FALSE, &worldToViewTransform[0][0]);
-	glUniformMatrix4fv(shaderA.gProjectionTransformLocation, 1, GL_FALSE, &projectionTransform[0][0]);
-
-	glutSwapBuffers();
-}
-
-static void sceneSetup(float windowWidth, float windowHeight)
-{
-	// Create out projection transform
-	projectionTransform = perspective(45.0f, (float)windowWidth / (float)windowHeight, 1.0f, 100.0f);
-}
-
-// Create GameObjects and its vertex buffer as well as sets the shader for the gameObject
-static void createGameObjects()
-{
-	const int numVerts = 3;	// use this once or duplicate for each vbo
-	
-	Properties objA_Data[numVerts] = {
-		{vec3(-0.5f, -0.5f, 0.0f), vec4(1.0f, 0.0f, 0.0f, 1.0f)},
-		{vec3(0.5f, -0.5f, 0.0f),  vec4(0.0f, 1.0f, 0.0f, 1.0f)},
-		{vec3(0.0f, 0.5f, 0.0f),  vec4(0.0f, 0.0f, 1.0f, 1.0f)}
-	};
-
-	Properties objB_Data[numVerts] = {
-		{vec3(-0.5f, -0.5f, 0.0f), vec4(0.5f, 1.0f, 0.0f, 1.0f)},
-		{vec3(0.5f, -0.5f, 0.0f),  vec4(0.0f, 1.0f, 0.0f, 1.0f)},
-		{vec3(0.0f, 0.5f, 0.0f),  vec4(0.8f, 0.0f, 1.0f, 1.0f)}
-	};
-
-	objA.setPrimitiveMode(GL_TRIANGLES);
-	objA.createVertexBuffer(objA_Data, numVerts);
-	objA.setShader(&shaderA);
-
-	objB.setPrimitiveMode(GL_TRIANGLES);
-	objB.createVertexBuffer(objB_Data, numVerts);
-	objB.setShader(&shaderA);
-}
+#pragma region InputHandlers
 
 static void processMouse(int button, int state, int x, int y)
 {
-	printf("\nMouse X --> %d,	Mouse Y --> %d\n", x, y);
+	//printf("\nMouse X --> %d,	Mouse Y --> %d\n", x, y);
 	if (button == GLUT_LEFT_BUTTON)
 	{
+		if (state == GLUT_DOWN)
+			isWireframe = !isWireframe;
 		//printf("Left Mouse Button Clicked");
-		glPolygonMode(GL_FRONT, GL_LINE);
-		glPolygonMode(GL_BACK, GL_LINE);
+
 	}
-	else if (button == GLUT_RIGHT_BUTTON)
+	if (button == 3)
 	{
-		//printf("Right Mouse Button Clicked");
-		glPolygonMode(GL_FRONT, GL_FILL);
-		glPolygonMode(GL_BACK, GL_FILL);
-	}
-	else if (button == 3)
-	{
-		cout << "Mouse Zoom in" << endl;
+		//cout << "Mouse Zoom in" << endl;
 		cameraPosZ -= 1.0f;
 	}
-	else if (button == 4)
+	if (button == 4)
 	{
-		cout << "Mouse Zoom out" << endl;
+		//cout << "Mouse Zoom out" << endl;
 		cameraPosZ += 1.0f;
 	}
 }
@@ -149,6 +78,25 @@ static void keyboardCallback(unsigned char key, int x, int y)
 			break;
 		case 's':
 			isScale = true;
+			break;
+
+		case '4':
+			cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * 0.5f;
+			break;
+		case '6':
+			cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * 0.5f;
+			break;
+		case '8':
+			cameraPos.y += 0.5f;
+			break;
+		case '2':
+			cameraPos.y -= 0.5f;
+			break;
+		case '5':
+			cameraPosZ -= 1.0f;
+			break;
+		case '0':
+			cameraPosZ += 1.0f;
 			break;
 		default:
 			break;
@@ -173,7 +121,7 @@ static void keyboardUpCallback(unsigned char key, int x, int y)
 
 void SpecialKeyBoardInput(int key, int x, int y)
 {
-	const float cameraSpeed = 0.1f;
+	const float cameraSpeed = 0.5f;
 
 	switch (key)
 	{
@@ -192,6 +140,92 @@ void SpecialKeyBoardInput(int key, int x, int y)
 	}
 }
 
+#pragma endregion
+
+#pragma region Rendering
+
+static void renderSceneCallBack()
+{
+	glEnable(GL_DEPTH_TEST);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	objA.render();
+	objB.render();
+
+	// only doing translation when required (i.e. when user presses t)
+	if (isTranslate)
+	{
+		//printf("\nDoing Translation...");
+		translateValue += 0.009f;
+		objA.setTranslate(translateValue, 0, 0);
+		objB.setTranslate(0, translateValue, 0);
+	}
+
+	// only doing scaling when required (i.e. when user presses s)
+	if (isScale)
+	{
+		//printf("\nDoing Scaling...");
+		scaleValue += 0.01f;
+		objA.setScale(scaleValue, scaleValue, 0);
+		objB.setScale(scaleValue, scaleValue, 0);
+	}
+
+	static float angle = 10.0f;
+	angle += 1.0f;
+	objA.setRotation(angle, 0.0f, 1.0f, 0.0f);
+	objB.setRotation(angle, 0.0f, 0.0f, 1.0f);
+
+	worldToViewTransform = lookAt(vec3(cameraPos.x, cameraPos.y, cameraPosZ), cameraPos + cameraFront, vec3(0.0f, 1.0f, 0.0f));
+
+	// Update the transforms in the shader program on the GPU
+	glUniformMatrix4fv(shaderA.gWorldToViewTransformLocation, 1, GL_FALSE, &worldToViewTransform[0][0]);
+	glUniformMatrix4fv(shaderA.gProjectionTransformLocation, 1, GL_FALSE, &projectionTransform[0][0]);
+
+	Utilities::ToggleWireFrame(isWireframe);
+
+	glutSwapBuffers();
+}
+
+
+#pragma endregion
+
+#pragma region GameObject + Scene Setup
+
+// Create GameObjects and its vertex buffer as well as sets the shader for the gameObject
+static void createGameObjects()
+{
+	const int numVerts = 3;	// use this once or duplicate for each vbo
+
+	Properties objA_Data[numVerts] = {
+		{vec3(-0.5f, -0.5f, 0.0f), vec4(1.0f, 0.0f, 0.0f, 1.0f)},
+		{vec3(0.5f, -0.5f, 0.0f),  vec4(0.0f, 1.0f, 0.0f, 1.0f)},
+		{vec3(0.0f, 0.5f, 0.0f),  vec4(0.0f, 0.0f, 1.0f, 1.0f)}
+	};
+
+	Properties objB_Data[numVerts] = {
+		{vec3(-0.5f, -0.5f, 0.0f), vec4(0.5f, 1.0f, 0.0f, 1.0f)},
+		{vec3(0.5f, -0.5f, 0.0f),  vec4(0.0f, 1.0f, 0.0f, 1.0f)},
+		{vec3(0.0f, 0.5f, 0.0f),  vec4(0.8f, 0.0f, 1.0f, 1.0f)}
+	};
+
+	objA.setPrimitiveMode(GL_TRIANGLES);
+	objA.createVertexBuffer(objA_Data, numVerts);
+	objA.setShader(&shaderA);
+
+	objB.setPrimitiveMode(GL_TRIANGLES);
+	objB.createVertexBuffer(objB_Data, numVerts);
+	objB.setShader(&shaderA);
+}
+
+static void sceneSetup(float windowWidth, float windowHeight)
+{
+	// Create out projection transform
+	projectionTransform = perspective(45.0f, (float)windowWidth / (float)windowHeight, 1.0f, 100.0f);
+}
+
+#pragma endregion
+
+
 static void initializeGlutCallbacks()
 {
 	glutDisplayFunc(renderSceneCallBack);
@@ -202,35 +236,37 @@ static void initializeGlutCallbacks()
 	glutSpecialFunc(SpecialKeyBoardInput);
 }
 
-//int main(int argc, char** argv)
-//{
-//	glutInit(&argc, argv);
-//    glutInitDisplayMode(GLUT_DOUBLE|GLUT_RGBA);
-//    glutInitWindowSize(windowWidth, windowHeight);
-//    glutInitWindowPosition(windowPos_X, windowPos_Y);
-//	glutCreateWindow(windowTitle);
-//
-//
-//	initializeGlutCallbacks();
-//
-//	// Must be done after glut is initialized!
-//	GLenum res = glewInit();
-//	if (res != GLEW_OK)
-//	{
-//		cerr << "Error: " << glewGetErrorString(res) << "\n";
-//		return 1;
-//	}
-//
-//	// build (all) shaders	
-//	shaderA.buildShader("vertexShader.glsl", "fragmentShader.glsl");
-//
-//	glClearColor(0.07f, 0.08f, 0.13f, 1.0f);
-//
-//	sceneSetup(windowWidth, windowHeight);
-//
-//	createGameObjects();	// creates set of gameObjects
-//
-//	glutMainLoop();
-//
-//	return 0;
-//}
+int main(int argc, char** argv)
+{
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
+	glutInitWindowSize(windowWidth, windowHeight);
+	glutInitWindowPosition(windowPos_X, windowPos_Y);
+	glutCreateWindow(windowTitle);
+
+
+	initializeGlutCallbacks();
+
+	// Must be done after glut is initialized!
+	GLenum res = glewInit();
+	if (res != GLEW_OK)
+	{
+		cerr << "Error: " << glewGetErrorString(res) << "\n";
+		return 1;
+	}
+
+	Utilities::ControlGuideInConsole();
+
+	// build (all) shaders	
+	shaderA.buildShader("vertexShader.glsl", "fragmentShader.glsl");
+
+	glClearColor(0.07f, 0.08f, 0.13f, 1.0f);
+
+	sceneSetup(windowWidth, windowHeight);
+
+	createGameObjects();	// creates set of gameObjects
+
+	glutMainLoop();
+
+	return 0;
+}

@@ -24,7 +24,7 @@ void GameObject::createVertexBuffer(Properties properties[], int numverts)
 void GameObject::setPrimitiveMode(GLenum mode)
 {
 	primitiveMode = mode;
-	printf(" ==>"+primitiveMode);
+	//printf(" ==>"+primitiveMode);
 }
 
 void GameObject::setShader(ShaderTechnique* s)
@@ -78,7 +78,7 @@ void GameObject::setRotation(float angle, float rotationXValue, float rotationYV
 }
 void GameObject::setTransform()
 {
-	printf("\n[SETTING TRANSFORM]...");
+	//printf("\n[SETTING TRANSFORM]...");
 	
 	// order of transformation: right ==> left
 	finalTrans = rotator * scaler * translator;

@@ -32,7 +32,7 @@ public:
 	GLuint getShaderProgram();
 
 	// reads (shader) file and returns the content of file as a string
-	string readFile(string fileName);
+	string readShaderFile(string fileName);
 
 	// creates a type of shader object (Vertex & Fragment) and then compiles and attaches the shader object to the program object
 	void addShader(GLuint shaderProgram, const char* pShaderText, GLenum shaderType);
