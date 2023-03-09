@@ -64,4 +64,11 @@ public:
 			cout << endl;
 		}
 	}
+
+	static void InputDebugger(string inputHandler)
+	{
+		system("cls");
+		ControlGuideInConsole();
+		cout << "Input ---> " << inputHandler << endl;
+	}
 };

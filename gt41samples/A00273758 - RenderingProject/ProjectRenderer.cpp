@@ -15,8 +15,8 @@ File Name: ProjectRenderer.cpp
 #pragma region Some Global Variables
 
 // initialize some window properties
-static unsigned int windowWidth = 800;
-static unsigned int windowHeight = 500;
+static unsigned int windowWidth = 1000;
+static unsigned int windowHeight = 600;
 unsigned int windowPos_X = 800;
 unsigned int windowPos_Y = 400;
 const char* windowTitle = "A00273758: Rendering Project - Part 1 & 2";
@@ -53,19 +53,20 @@ static void processMouse(int button, int state, int x, int y)
 	{
 		if (state == GLUT_DOWN)
 			isWireframe = !isWireframe;
-		//printf("Left Mouse Button Clicked");
-
+		Utilities::InputDebugger("Left Mouse Button Clicked");
 	}
 	if (button == 3)
 	{
-		//cout << "Mouse Zoom in" << endl;
 		cameraPosZ -= 1.0f;
+		Utilities::InputDebugger("Mouse Scroll Up");
 	}
 	if (button == 4)
 	{
-		//cout << "Mouse Zoom out" << endl;
 		cameraPosZ += 1.0f;
+		Utilities::InputDebugger("Mouse Scroll Down");
 	}
+
+	
 }
 
 // keyboard (key) down function
@@ -75,28 +76,36 @@ static void keyboardCallback(unsigned char key, int x, int y)
 	{
 		case 't':
 			isTranslate = true;
+			Utilities::InputDebugger("t");
 			break;
 		case 's':
 			isScale = true;
+			Utilities::InputDebugger("s");
 			break;
 
 		case '4':
 			cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * 0.5f;
+			Utilities::InputDebugger("4");
 			break;
 		case '6':
 			cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * 0.5f;
+			Utilities::InputDebugger("6");
 			break;
 		case '8':
 			cameraPos.y += 0.5f;
+			Utilities::InputDebugger("8");
 			break;
 		case '2':
 			cameraPos.y -= 0.5f;
+			Utilities::InputDebugger("2");
 			break;
 		case '5':
 			cameraPosZ -= 1.0f;
+			Utilities::InputDebugger("5");
 			break;
 		case '0':
 			cameraPosZ += 1.0f;
+			Utilities::InputDebugger("0");
 			break;
 		default:
 			break;
@@ -127,15 +136,19 @@ void SpecialKeyBoardInput(int key, int x, int y)
 	{
 		case GLUT_KEY_UP:
 			cameraPos.y += cameraSpeed;
+			Utilities::InputDebugger("Up Arrow");
 			break;
 		case GLUT_KEY_DOWN:
 			cameraPos.y -= cameraSpeed;
+			Utilities::InputDebugger("Down Arrow");
 			break;
 		case GLUT_KEY_LEFT:
 			cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+			Utilities::InputDebugger("Left Arrow");
 			break;
 		case GLUT_KEY_RIGHT:
 			cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+			Utilities::InputDebugger("Right Arrow");
 			break;
 	}
 }
