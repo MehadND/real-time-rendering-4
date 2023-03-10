@@ -57,12 +57,12 @@ static void processMouse(int button, int state, int x, int y)
 	}
 	if (button == 3)
 	{
-		cameraPosZ -= 1.0f;
+		cameraPosZ -= 0.25f;
 		Utilities::InputDebugger("Mouse Scroll Up");
 	}
 	if (button == 4)
 	{
-		cameraPosZ += 1.0f;
+		cameraPosZ += 0.25f;
 		Utilities::InputDebugger("Mouse Scroll Down");
 	}
 
@@ -100,11 +100,11 @@ static void keyboardCallback(unsigned char key, int x, int y)
 			Utilities::InputDebugger("2");
 			break;
 		case '5':
-			cameraPosZ -= 1.0f;
+			cameraPosZ -= 0.25f;
 			Utilities::InputDebugger("5");
 			break;
 		case '0':
-			cameraPosZ += 1.0f;
+			cameraPosZ += 0.25f;
 			Utilities::InputDebugger("0");
 			break;
 		default:
@@ -159,7 +159,8 @@ void SpecialKeyBoardInput(int key, int x, int y)
 
 static void renderSceneCallBack()
 {
-	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST); 
+	glDepthFunc(GL_LESS);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	objA.render();
@@ -271,7 +272,7 @@ int main(int argc, char** argv)
 	Utilities::ControlGuideInConsole();
 
 	// build (all) shaders	
-	shaderA.buildShader("vertexShader.glsl", "fragmentShader.glsl");
+	shaderA.buildShader("Shaders/vertexShader.glsl", "Shaders/fragmentShader.glsl");
 
 	glClearColor(0.07f, 0.08f, 0.13f, 1.0f);
 

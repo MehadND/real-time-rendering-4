@@ -7,6 +7,9 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <Windows.h>
 #include "aiterror.h"
+#include <vector>
+#include <glm/gtx/string_cast.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 using namespace std;
 using namespace glm;
@@ -34,30 +37,32 @@ public:
 	// Control Guide Console Utility
 	static void ControlGuideInConsole()
 	{
-		cout << "\t*=================================================*" << endl;
-		cout << "\t|                    Controls                     |" << endl;
-		cout << "\t|-------------------------------------------------|" << endl;
-		cout << "\t|                     Camera                      |" << endl;
-		cout << "\t|                                                 |" << endl;
-		cout << "\t|          Up Arrow / 8 --> Move Up               |" << endl;
-		cout << "\t|        Down Arrow / 2 --> Move Down             |" << endl;
-		cout << "\t|        Left Arrow / 4 --> Move Left             |" << endl;
-		cout << "\t|       Right Arrow / 6 --> Move Right            |" << endl;
-		cout << "\t|         Scroll Up / 5 --> Move Forward/Zoom in  |" << endl;
-		cout << "\t|       Scroll Down / 0 --> Move Backward/Zoom out|" << endl;
-		cout << "\t|                                                 |" << endl;
-		cout << "\t*-------------------------------------------------*" << endl;
-		cout << "\t|                                                 |" << endl;
-		cout << "\t|                     Object                      |" << endl;
-		cout << "\t|                                                 |" << endl;
-		cout << "\t|                  t   -->  translation           |" << endl;
-		cout << "\t|                  s   -->  scaling               |" << endl;
-		cout << "\t|                                                 |" << endl;
-		cout << "\t*-------------------------------------------------*" << endl;
-		cout << "\t|                                                 |" << endl;
-		cout << "\t|     Left Mouse Click --> Toggle Wireframe Mode  |" << endl;
-		cout << "\t|                                                 |" << endl;
-		cout << "\t*=================================================*" << endl;
+		system("cls");
+
+		cout << "*=================================================*" << endl;
+		cout << "|                    Controls                     |" << endl;
+		cout << "|-------------------------------------------------|" << endl;
+		cout << "|                     Camera                      |" << endl;
+		cout << "|                                                 |" << endl;
+		cout << "|          Up Arrow / 8 --> Move Up               |" << endl;
+		cout << "|        Down Arrow / 2 --> Move Down             |" << endl;
+		cout << "|        Left Arrow / 4 --> Move Left             |" << endl;
+		cout << "|       Right Arrow / 6 --> Move Right            |" << endl;
+		cout << "|         Scroll Up / 5 --> Move Forward/Zoom in  |" << endl;
+		cout << "|       Scroll Down / 0 --> Move Backward/Zoom out|" << endl;
+		cout << "|                                                 |" << endl;
+		cout << "*-------------------------------------------------*" << endl;
+		cout << "|                                                 |" << endl;
+		cout << "|                     Object                      |" << endl;
+		cout << "|                                                 |" << endl;
+		cout << "|                  t   -->  translation           |" << endl;
+		cout << "|                  s   -->  scaling               |" << endl;
+		cout << "|                                                 |" << endl;
+		cout << "*-------------------------------------------------*" << endl;
+		cout << "|                                                 |" << endl;
+		cout << "|     Left Mouse Click --> Toggle Wireframe Mode  |" << endl;
+		cout << "|                                                 |" << endl;
+		cout << "*=================================================*" << endl;
 
 		for (int i = 0; i < 3; i++)
 		{
@@ -65,10 +70,11 @@ public:
 		}
 	}
 
-	static void InputDebugger(string inputHandler)
+	static void InputDebugger(string inputKey)
 	{
-		system("cls");
 		ControlGuideInConsole();
-		cout << "Input ---> " << inputHandler << endl;
+		cout << "Input ---> " << inputKey << endl;
 	}
+
 };
+
