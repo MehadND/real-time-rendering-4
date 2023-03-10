@@ -110,7 +110,7 @@ public:
 
 <details>
 
-<summary>  <h2>Part 2 [Status: 🔃]</h2>  </summary>
+<summary>  <h2>Part 2 - First Iteration [Status: ✅]</h2>  </summary>
 
 <blockquote>
 
@@ -123,13 +123,6 @@ public:
 The goal of the part 2 of the project is to refactor this code so that you:
 
 - Update your GameObject or Renderable to also encapsulate the scale, position and rotation of a collection of vertices (3D object).
-
-- Create a Camera object which encapsulates the functionality of the camera.
-
-- Update your GameObject so that you can create the vertex buffer object from the triangles specified in an OBJ file.
-
-- Create a basic interactive scene demonstrating all features of your project.
-	* For example navigating around a simple scene of objects loaded from obj files.
 
 </details>
 
@@ -305,42 +298,6 @@ private:
 };
 ```
 
- - Checks for transformation, i.e. only do transformation when translate or scale change
-
-```cpp
-// checks for changes in translate
-void GameObject::setTranslate(float translateXValue, float translateYValue, float translateZValue)
-{
-	float oldX{}, oldY{}, oldZ{};
-	// checks to see if there is any change in translation then set to new transform
-	if (translateXValue != oldX || translateYValue != oldY || translateZValue != oldZ)
-	{
-		// do some translation here...
-		translator = translate(mat4(1.0f), vec3(translateXValue, translateYValue, translateZValue));
-		isSetTransform = true;
-	}
-	oldX = translateXValue;
-	oldY = translateYValue;
-	oldZ = translateZValue;
-}
-```
-```cpp
-// checks for changes in scale
-void GameObject::setScale(float scaleXValue, float scaleYValue, float scaleZValue)
-{
-	float oldX{}, oldY{}, oldZ{};
-	// checks to see if there is any change in scale then set to new transform
-	if (scaleXValue != oldX || scaleYValue != oldY || scaleZValue != oldZ)
-	{
-		// do some scaling here...
-		scaler = scale(mat4(1.0f), vec3(cosf(scaleXValue) / 2, sinf(scaleYValue) / 2, scaleZValue));
-		isSetTransform = true;
-	}
-	oldX = scaleXValue;
-	oldY = scaleYValue;
-	oldZ = scaleZValue;
-}
-```
 ```cpp
 
 void GameObject::setTransform()
@@ -382,18 +339,11 @@ void GameObject::render()
 
   ### After
   
-| ![Part 2 - After](https://github.com/MehadND/real-time-rendering-4/blob/8e4917f0f6c4bab29cb68d2cd5cd0136c30174f4/gt41samples/A00273758%20-%20RenderingProject/part2.gif)  |
+| <video src="https://user-images.githubusercontent.com/34424878/222952716-26ab3859-08ac-40c4-a339-9d617e92cd14.mp4" width="10"  height="10" /> |
 |---|
 | *Please note the pauses in between are happening because the transform is done when it is necessary, in my project once user presses 't' or 's' it would do some transform, hence the little pauses in between* |
-	
-<details>
-<summary>Video Control</summary>
-
-https://user-images.githubusercontent.com/34424878/222952716-26ab3859-08ac-40c4-a339-9d617e92cd14.mp4
-
-</details>	
-
-  </details> 
+	  
+</details> 
 	
 </blockquote>
 </details> 
@@ -402,7 +352,7 @@ https://user-images.githubusercontent.com/34424878/222952716-26ab3859-08ac-40c4-
 
 <details>
 
-<summary>  <h2>Part ... [Status: ❌]</h2>  </summary>
+<summary>  <h2>Part 2 - Second Iteration [Status: ✅]</h2>  </summary>
 
 <blockquote>
 
@@ -410,7 +360,12 @@ https://user-images.githubusercontent.com/34424878/222952716-26ab3859-08ac-40c4-
 
 <summary><h4>Goal</h4></summary>
 
-  
+- Create a Camera object which encapsulates the functionality of the camera.
+
+- Update your GameObject so that you can create the vertex buffer object from the triangles specified in an OBJ file.
+
+- Create a basic interactive scene demonstrating all features of your project.
+	* For example navigating around a simple scene of objects loaded from obj files.
 
 Goal
 
