@@ -21,6 +21,15 @@ void GameObject::createVertexBuffer(Properties properties[], int numverts)
 	glBufferData(GL_ARRAY_BUFFER, sizeof(Properties) * numOfVertices, properties, GL_STATIC_DRAW);
 }
 
+void GameObject::createVBO(vec3 vertices[], int numverts)
+{
+	numOfVertices = numverts;
+
+	glGenBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vec3) * numOfVertices, vertices, GL_STATIC_DRAW);
+}
+
 void GameObject::setPrimitiveMode(GLenum mode)
 {
 	primitiveMode = mode;
@@ -93,12 +102,42 @@ void GameObject::render()
 {
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
-	//glEnableVertexAttribArray(2);
+	glEnableVertexAttribArray(2);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Properties), 0);
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Properties), (const GLvoid*)12);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 40, (const GLvoid*)28);
+
+	gameObjectProperties.shader->useShader();
+
+	if (isSetTransform)
+	{
+		// set custom transformations
+		setTransform();
+		isSetTransform = false;
+	}
+
+	applyTransform();
+
+	glDrawArrays(primitiveMode, 0, numOfVertices);
+
+	glDisableVertexAttribArray(0);
+	glDisableVertexAttribArray(1);
+	glDisableVertexAttribArray(2);
+}
+
+void GameObject::renderOBJ()
+{
+	glEnableVertexAttribArray(0);
+	glEnableVertexAttribArray(1);
+	//glEnableVertexAttribArray(2);
+
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vec3), 0);
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(vec3), (const GLvoid*)12);
 	//glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 40, (const GLvoid*)28);
 
 	gameObjectProperties.shader->useShader();
@@ -112,7 +151,7 @@ void GameObject::render()
 
 	applyTransform();
 
-	glDrawArrays(GL_TRIANGLES, 0, numOfVertices);
+	glDrawArrays(primitiveMode, 0, numOfVertices);
 
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);

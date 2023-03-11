@@ -2,8 +2,10 @@
                                        
 layout (location = 0) in vec3 Position;
 layout (location = 1) in vec4 Colour;
+layout (location = 2) in vec3 Normal;
 
 out vec4 Colour0;
+out vec3 Normal0;
 
 uniform mat4 gModelToWorldTransform;
 uniform mat4 gWorldToViewTransform;
@@ -22,4 +24,5 @@ void main()
 	gl_Position = vertexInClipSpace;
 
 	Colour0 = Colour;
+    Normal0 = Normal;
 }

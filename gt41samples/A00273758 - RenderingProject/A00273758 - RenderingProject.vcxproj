@@ -20,6 +20,7 @@
   <ItemGroup>
     <ClInclude Include="aiterror.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="ProjectLibraries.h" />
     <ClInclude Include="ShaderTechnique.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

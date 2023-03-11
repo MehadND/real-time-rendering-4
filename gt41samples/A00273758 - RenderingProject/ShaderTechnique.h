@@ -5,18 +5,7 @@ File Name: ShaderTechnique.h
 ****************************************************************************/
 #pragma once
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <GL/glew.h>
-#include <GL/freeglut.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <Windows.h>
-#include "aiterror.h"
-
-using namespace std;
-using namespace glm;
+#include "ProjectLibraries.h"
 
 /// A class that can load, compile and link a vertex and fragment shader onto gameobject(s)
 class ShaderTechnique

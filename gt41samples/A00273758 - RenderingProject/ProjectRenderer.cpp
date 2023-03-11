@@ -10,9 +10,6 @@ File Name: ProjectRenderer.cpp
 
 #include "ShaderTechnique.h"
 #include "GameObject.h"
-#include "Helper.cpp"
-
-#pragma region Some Global Variables
 
 // initialize some window properties
 static unsigned int windowWidth = 1000;
@@ -23,13 +20,14 @@ const char* windowTitle = "A00273758: Rendering Project - Part 1 & 2";
 
 // some GameObjects + Shaders
 GameObject objA;
-ShaderTechnique shaderA;
-
 GameObject objB;
+GameObject objC;
+
+ShaderTechnique shaderA;
 ShaderTechnique shaderB;
 
-float translateValue, scaleValue;
-bool isTranslate, isScale;
+//float translateValue, scaleValue;
+//bool isTranslate, isScale;
 
 mat4 worldToViewTransform;
 mat4 projectionTransform;
@@ -42,18 +40,21 @@ glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 
 bool isWireframe = false;
 
-#pragma endregion
+vector<vec3> obj_vertices;
+vector<vec3> normalVec;
+vec3 objVertz[12];
 
-#pragma region InputHandlers
+float posX = 4.0f, posY = 3.0f;
 
 static void processMouse(int button, int state, int x, int y)
 {
-	//printf("\nMouse X --> %d,	Mouse Y --> %d\n", x, y);
 	if (button == GLUT_LEFT_BUTTON)
 	{
 		if (state == GLUT_DOWN)
+		{
 			isWireframe = !isWireframe;
-		Utilities::InputDebugger("Left Mouse Button Clicked");
+			Utilities::InputDebugger("Left Mouse Button Clicked");
+		}
 	}
 	if (button == 3)
 	{
@@ -69,18 +70,34 @@ static void processMouse(int button, int state, int x, int y)
 	
 }
 
-// keyboard (key) down function
-static void keyboardCallback(unsigned char key, int x, int y)
+static void processKeyboardDown(unsigned char key, int x, int y)
 {
 	switch (key)
 	{
-		case 't':
+		/*case 't':
 			isTranslate = true;
 			Utilities::InputDebugger("t");
 			break;
 		case 's':
 			isScale = true;
 			Utilities::InputDebugger("s");
+			break;*/
+
+		case 'i':
+			posY += 0.25f;
+			Utilities::InputDebugger("i");
+			break;
+		case 'k':
+			posY -= 0.25f;
+			Utilities::InputDebugger("k");
+			break;
+		case 'j':
+			posX -= 0.25f;
+			Utilities::InputDebugger("j");
+			break;
+		case 'l':
+			posX += 0.25f;
+			Utilities::InputDebugger("l");
 			break;
 
 		case '4':
@@ -112,23 +129,27 @@ static void keyboardCallback(unsigned char key, int x, int y)
 	}
 }
 
-// keyboard (key) up function
-static void keyboardUpCallback(unsigned char key, int x, int y)
+static void processKeyboardUp(unsigned char key, int x, int y)
 {
+	const unsigned char escapeKey = 27;
+
 	switch (key)
 	{
-		case 't':
+		/*case 't':
 			isTranslate = false;
 			break;
 		case 's':
 			isScale = false;
-			break;
-		default:
+			break;*/
+		case escapeKey:
+			glutLeaveMainLoop();
+			Utilities::InputDebugger("esc");
+			cout << "\nApplication Quit...Success!" << endl;
 			break;
 	}
 }
 
-void SpecialKeyBoardInput(int key, int x, int y)
+void processKeyboardSpecialKeys(int key, int x, int y)
 {
 	const float cameraSpeed = 0.5f;
 
@@ -153,10 +174,6 @@ void SpecialKeyBoardInput(int key, int x, int y)
 	}
 }
 
-#pragma endregion
-
-#pragma region Rendering
-
 static void renderSceneCallBack()
 {
 	glEnable(GL_DEPTH_TEST); 
@@ -165,29 +182,35 @@ static void renderSceneCallBack()
 
 	objA.render();
 	objB.render();
+	objC.renderOBJ();
 
 	// only doing translation when required (i.e. when user presses t)
-	if (isTranslate)
-	{
-		//printf("\nDoing Translation...");
-		translateValue += 0.009f;
-		objA.setTranslate(translateValue, 0, 0);
-		objB.setTranslate(0, translateValue, 0);
-	}
+	//if (isTranslate)
+	//{
+	//	//printf("\nDoing Translation...");
+	//	translateValue += 0.009f;
+	//	objA.setTranslate(translateValue, 0, 0);
+	//	objB.setTranslate(0, translateValue, 0);
+	//}
+
+	objA.setTranslate(posX, 0, 0);
+	objB.setTranslate(0, posY, 0);
+	objC.setTranslate(0, 0, 0);
 
 	// only doing scaling when required (i.e. when user presses s)
-	if (isScale)
-	{
-		//printf("\nDoing Scaling...");
-		scaleValue += 0.01f;
-		objA.setScale(scaleValue, scaleValue, 0);
-		objB.setScale(scaleValue, scaleValue, 0);
-	}
+	//if (isScale)
+	//{
+	//	//printf("\nDoing Scaling...");
+	//	scaleValue += 0.01f;
+	//	objA.setScale(scaleValue, scaleValue, 0);
+	//	objB.setScale(scaleValue, scaleValue, 0);
+	//}
 
 	static float angle = 10.0f;
 	angle += 1.0f;
-	objA.setRotation(angle, 0.0f, 1.0f, 0.0f);
+	objA.setRotation(angle, 1.0f, 0.0f, 0.0f);
 	objB.setRotation(angle, 0.0f, 0.0f, 1.0f);
+	objC.setRotation(angle, 0.0f, 1.0f, 0.0f);
 
 	worldToViewTransform = lookAt(vec3(cameraPos.x, cameraPos.y, cameraPosZ), cameraPos + cameraFront, vec3(0.0f, 1.0f, 0.0f));
 
@@ -199,11 +222,6 @@ static void renderSceneCallBack()
 
 	glutSwapBuffers();
 }
-
-
-#pragma endregion
-
-#pragma region GameObject + Scene Setup
 
 // Create GameObjects and its vertex buffer as well as sets the shader for the gameObject
 static void createGameObjects()
@@ -229,6 +247,14 @@ static void createGameObjects()
 	objB.setPrimitiveMode(GL_TRIANGLES);
 	objB.createVertexBuffer(objB_Data, numVerts);
 	objB.setShader(&shaderA);
+
+	obj_vertices = Utilities::objFileLoader("Other/cube.obj", obj_vertices, normalVec);
+
+	copy(obj_vertices.begin(), obj_vertices.end(), objVertz);
+
+	objC.setPrimitiveMode(GL_TRIANGLE_STRIP);
+	objC.createVBO(objVertz, 8);
+	objC.setShader(&shaderA);
 }
 
 static void sceneSetup(float windowWidth, float windowHeight)
@@ -237,17 +263,14 @@ static void sceneSetup(float windowWidth, float windowHeight)
 	projectionTransform = perspective(45.0f, (float)windowWidth / (float)windowHeight, 1.0f, 100.0f);
 }
 
-#pragma endregion
-
-
 static void initializeGlutCallbacks()
 {
 	glutDisplayFunc(renderSceneCallBack);
 	glutIdleFunc(renderSceneCallBack);
 	glutMouseFunc(processMouse);
-	glutKeyboardFunc(keyboardCallback);
-	glutKeyboardUpFunc(keyboardUpCallback);
-	glutSpecialFunc(SpecialKeyBoardInput);
+	glutKeyboardFunc(processKeyboardDown);
+	glutKeyboardUpFunc(processKeyboardUp);
+	glutSpecialFunc(processKeyboardSpecialKeys);
 }
 
 int main(int argc, char** argv)
@@ -274,7 +297,7 @@ int main(int argc, char** argv)
 	// build (all) shaders	
 	shaderA.buildShader("Shaders/vertexShader.glsl", "Shaders/fragmentShader.glsl");
 
-	glClearColor(0.07f, 0.08f, 0.13f, 1.0f);
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
 	sceneSetup(windowWidth, windowHeight);
 

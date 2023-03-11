@@ -1,18 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <GL/glew.h>
-#include <GL/freeglut.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <Windows.h>
-#include "aiterror.h"
-#include <vector>
-#include <glm/gtx/string_cast.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-using namespace std;
-using namespace glm;
+#include "ProjectLibraries.h"
 
 class Utilities
 { 
@@ -52,22 +38,20 @@ public:
 		cout << "|       Scroll Down / 0 --> Move Backward/Zoom out|" << endl;
 		cout << "|                                                 |" << endl;
 		cout << "*-------------------------------------------------*" << endl;
+		cout << "|                    Object                       |" << endl;
 		cout << "|                                                 |" << endl;
-		cout << "|                     Object                      |" << endl;
-		cout << "|                                                 |" << endl;
-		cout << "|                  t   -->  translation           |" << endl;
-		cout << "|                  s   -->  scaling               |" << endl;
+		cout << "|                i    -->   Move Up               |" << endl;
+		cout << "|                j    -->   Move Down             |" << endl;
+		cout << "|                j    -->   Move Left             |" << endl;
+		cout << "|                l    -->   Move Right            |" << endl;
 		cout << "|                                                 |" << endl;
 		cout << "*-------------------------------------------------*" << endl;
 		cout << "|                                                 |" << endl;
+		cout << "|        Escape Key    -->    Quit Application    |" << endl;
 		cout << "|     Left Mouse Click --> Toggle Wireframe Mode  |" << endl;
 		cout << "|                                                 |" << endl;
 		cout << "*=================================================*" << endl;
-
-		for (int i = 0; i < 3; i++)
-		{
-			cout << endl;
-		}
+		cout << endl;
 	}
 
 	static void InputDebugger(string inputKey)
@@ -76,5 +60,43 @@ public:
 		cout << "Input ---> " << inputKey << endl;
 	}
 
+	static vector<vec3> objFileLoader(const char* filename, vector<vec3> vertices, vector<vec3> normalVec)
+	{
+		vec4 vertex;
+		vec4 normal;
+
+		ifstream in(filename, ios::in);
+		if (!in)
+		{
+			cerr << "Cannot open " << filename << endl; exit(1);
+		}
+
+		string line;
+		//int i = 0;
+		int j = 0;
+		while (getline(in, line))
+		{
+			if (line.substr(0, 2) == "v ")
+			{
+				istringstream s(line.substr(2));
+				s >> vertex.x; s >> vertex.y; s >> vertex.z; vertex.w = 1.0f;
+				//cout << to_string(v) << endl;
+				//cout << "V[" << i << "] = (" << vertex.x << ", " << vertex.y << ", " << vertex.z << ")" << endl;
+				vertices.push_back(vec3(vertex.x, vertex.y, vertex.z));
+				//i++;
+			}
+			if (line.substr(0, 2) == "vn")
+			{
+				istringstream s(line.substr(2));
+				s >> normal.x; s >> normal.y; s >> normal.z; normal.w = 1.0f;
+				//cout << to_string(v) << endl;
+				cout << "normal[" << j << "] = (" << normal.x << ", " << normal.y << ", " << normal.z << ")" << endl;
+				normalVec.push_back(vec3(normal.x, normal.y, normal.z));
+				j++;
+			}
+		}
+
+		return vertices;
+	}
 };
 

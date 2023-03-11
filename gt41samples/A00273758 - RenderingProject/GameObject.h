@@ -11,7 +11,7 @@ struct Properties
 {
 	vec3		pos;
 	vec4		color;
-	//glm::vec3		normal;
+	vec3		normal;
 
 	ShaderTechnique* shader; // pointer to the attached shader
 };
@@ -50,7 +50,9 @@ public:
 	GameObject();
 
 	// Creates a buffer based on the array of vertices passed into the function
-	void createVertexBuffer(Properties* properties, int numverts);
+	void createVertexBuffer(Properties properties[], int numverts);
+
+	void createVBO(vec3 vertices[], int numverts);
 
 	// sets primtive mode for a gameobject
 	void setPrimitiveMode(GLenum mode);
@@ -74,4 +76,6 @@ public:
 
 	// renders the gameobject onto the screen
 	void render();
+
+	void renderOBJ();
 };
