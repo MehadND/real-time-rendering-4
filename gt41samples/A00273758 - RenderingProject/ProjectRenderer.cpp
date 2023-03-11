@@ -43,7 +43,7 @@ bool isWireframe = false;
 
 vector<vec3> obj_vertices;
 vector<vec3> normalVec;
-vec3 objVertz[12];
+vec3 objVertz[24];	// 8 * 3 = 24 vertices
 
 float posX = 4.0f, posY = 3.0f;
 
@@ -207,6 +207,8 @@ static void renderSceneCallBack()
 	//	objB.setScale(scaleValue, scaleValue, 0);
 	//}
 
+	objC.setScale(4, 2, 2);
+
 	static float angle = 10.0f;
 	angle += 1.0f;
 	objA.setRotation(angle, 1.0f, 0.0f, 0.0f);
@@ -254,7 +256,7 @@ static void createGameObjects()
 	copy(obj_vertices.begin(), obj_vertices.end(), objVertz);
 
 	objC.setPrimitiveMode(GL_TRIANGLE_STRIP);
-	objC.createVBO(objVertz, 8);
+	objC.createVBO(objVertz, 24);
 	objC.setShader(&shaderA);
 }
 
