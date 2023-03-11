@@ -12,7 +12,6 @@
 #include <vector>
 #include <glm/gtx/string_cast.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "Helper.cpp"
 
 using namespace std;
 using namespace glm;

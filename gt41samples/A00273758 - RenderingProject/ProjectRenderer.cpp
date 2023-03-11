@@ -10,6 +10,7 @@ File Name: ProjectRenderer.cpp
 
 #include "ShaderTechnique.h"
 #include "GameObject.h"
+#include "Helper.cpp"
 
 // initialize some window properties
 static unsigned int windowWidth = 1000;
