@@ -12,7 +12,7 @@ const char* windowTitle = "A00273758 - Rendering Project";
 // some GameObjects
 GameObject triangleA;
 GameObject triangleB;
-GameObject cubeFromObjFile;
+//GameObject cubeFromObjFile;
 
 // some shaders
 ShaderTechnique shaderA;
@@ -37,13 +37,16 @@ vector<vec3> normalVec;
 vec3 objVertz[24];	// 8 * 3 = 24 vertices
 
 // variables for object translation
-float posX = 4.0f, posY = 3.0f;
+float posX = 0.0f, posY = 0.0f;
+
+bool isLeftArrowDown, isRightArrowDown, isUpArrowDown, isDownArrowDown = false;
+const float cameraSpeed = 0.05f;
 
 // some functions declaration
 void processMouse(int button, int state, int x, int y);
 void processKeyboardDown(unsigned char key, int x, int y);
 void processKeyboardUp(unsigned char key, int x, int y);
-void processKeyboardSpecialKeys(int key, int x, int y);
+//void processKeyboardSpecialKeys(int key, int x, int y);
 void createGameObjects();
 void sceneSetup(float windowWidth, float windowHeight);
 static void renderSceneCallBack();
@@ -106,19 +109,23 @@ void processKeyboardDown(unsigned char key, int x, int y)
 			break;
 
 		case '4':
-			cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * 0.5f;
+			//cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * 0.5f;
+			isLeftArrowDown = true;
 			Utilities::InputDebugger("4");
 			break;
 		case '6':
-			cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * 0.5f;
+			//cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * 0.5f;
+			isRightArrowDown = true;
 			Utilities::InputDebugger("6");
 			break;
 		case '8':
-			cameraPos.y += 0.5f;
+			//cameraPos.y += 0.5f;
+			isUpArrowDown = true;
 			Utilities::InputDebugger("8");
 			break;
 		case '2':
-			cameraPos.y -= 0.5f;
+			//cameraPos.y -= 0.5f;
+			isDownArrowDown = true;
 			Utilities::InputDebugger("2");
 			break;
 		case '5':
@@ -151,48 +158,75 @@ void processKeyboardUp(unsigned char key, int x, int y)
 			Utilities::InputDebugger("esc");
 			cout << "\nApplication Quit...Success!" << endl;
 			break;
-	}
-}
-
-void processKeyboardSpecialKeys(int key, int x, int y)
-{
-	const float cameraSpeed = 0.5f;
-
-	switch (key)
-	{
-		case GLUT_KEY_UP:
-			cameraPos.y += cameraSpeed;
-			Utilities::InputDebugger("Up Arrow");
+		case '4':
+			//cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * 0.5f;
+			isLeftArrowDown = false;
+			Utilities::InputDebugger("4");
 			break;
-		case GLUT_KEY_DOWN:
-			cameraPos.y -= cameraSpeed;
-			Utilities::InputDebugger("Down Arrow");
+		case '6':
+			//cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * 0.5f;
+			isRightArrowDown = false;
+			Utilities::InputDebugger("6");
 			break;
-		case GLUT_KEY_LEFT:
-			cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-			Utilities::InputDebugger("Left Arrow");
+		case '8':
+			isUpArrowDown = false;
+			Utilities::InputDebugger("8");
 			break;
-		case GLUT_KEY_RIGHT:
-			cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-			Utilities::InputDebugger("Right Arrow");
+		case '2':
+			isDownArrowDown = false;
+			Utilities::InputDebugger("2");
 			break;
 	}
 }
+
+//void processKeyboardSpecialKeys(int key, int x, int y)
+//{
+//
+//	switch (key)
+//	{
+//		case GLUT_KEY_UP:
+//			cameraPos.y += cameraSpeed;
+//			Utilities::InputDebugger("Up Arrow");
+//			break;
+//		case GLUT_KEY_DOWN:
+//			cameraPos.y -= cameraSpeed;
+//			Utilities::InputDebugger("Down Arrow");
+//			break;
+//		case GLUT_KEY_LEFT:
+//			//cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+//
+//			isLeftArrowDown = true;
+//			isRightArrowDown = false;
+//			Utilities::InputDebugger("Left Arrow");
+//			break;
+//		case GLUT_KEY_RIGHT:
+//			//cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+//
+//			isLeftArrowDown = false;
+//			isRightArrowDown = true;
+//			Utilities::InputDebugger("Right Arrow");
+//			break;
+//		default:
+//			isLeftArrowDown = false;
+//			isRightArrowDown = false;
+//	}
+//}
 
 void createGameObjects()
 {
+	// TODO: Do this using john's lighting project way
 	const int numVerts = 3;	// use this once or duplicate for each vbo
 
 	Properties objA_Data[numVerts] = {
-		{vec3(-0.5f, -0.5f, 0.0f), vec4(1.0f, 0.0f, 0.0f, 1.0f)},
-		{vec3(0.5f, -0.5f, 0.0f),  vec4(0.0f, 1.0f, 0.0f, 1.0f)},
-		{vec3(0.0f, 0.5f, 0.0f),  vec4(0.0f, 0.0f, 1.0f, 1.0f)}
+		{vec3(0.0f, 1.0f, 0.0f), vec4(1.0f, 0.0f, 0.0f, 1.0f), vec3(0.0f, 0.0f, 1.0f)},
+		{vec3(-1.0f, 0.0f, 0.0f),  vec4(0.0f, 1.0f, 0.0f, 1.0f), vec3(0.0f, 0.0f, 1.0f)},
+		{vec3(0.0f, 0.0f, 0.0f),  vec4(0.0f, 0.0f, 1.0f, 1.0f), vec3(0.0f, 0.0f, 1.0f)}
 	};
 
 	Properties objB_Data[numVerts] = {
-		{vec3(-0.5f, -0.5f, 0.0f), vec4(0.5f, 1.0f, 0.0f, 1.0f)},
-		{vec3(0.5f, -0.5f, 0.0f),  vec4(0.0f, 1.0f, 0.0f, 1.0f)},
-		{vec3(0.0f, 0.5f, 0.0f),  vec4(0.8f, 0.0f, 1.0f, 1.0f)}
+		{vec3(-1.0f, 1.0f, 0.0f), vec4(0.5f, 1.0f, 0.0f, 1.0f), vec3(0.0f, 0.0f, 1.0f)},
+		{vec3(-1.0f, 0.0f, 0.0f),  vec4(1.0f, 1.0f, 0.0f, 1.0f), vec3(0.0f, 0.0f, 1.0f)},
+		{vec3(0.0f, 1.0f, 0.0f),  vec4(0.8f, 1.0f, 1.0f, 1.0f), vec3(0.0f, 0.0f, 1.0f)}
 	};
 
 	triangleA.setPrimitiveMode(GL_TRIANGLES);
@@ -203,13 +237,13 @@ void createGameObjects()
 	triangleB.createVertexBuffer(objB_Data, numVerts);
 	triangleB.setShader(&shaderA);
 
-	obj_vertices = Utilities::objFileLoader("Other/cube.obj", obj_vertices, normalVec);
+	//obj_vertices = Utilities::objFileLoader("Other/cube.obj", obj_vertices, normalVec);
 
-	copy(obj_vertices.begin(), obj_vertices.end(), objVertz);
+	//copy(obj_vertices.begin(), obj_vertices.end(), objVertz);
 
-	cubeFromObjFile.setPrimitiveMode(GL_TRIANGLE_STRIP);
-	cubeFromObjFile.createVBO(objVertz, 24);
-	cubeFromObjFile.setShader(&shaderA);
+	//cubeFromObjFile.setPrimitiveMode(GL_TRIANGLES);
+	//cubeFromObjFile.createVBO(objVertz, 24);
+	//cubeFromObjFile.setShader(&shaderA);
 }
 
 void sceneSetup(float windowWidth, float windowHeight)
@@ -220,13 +254,17 @@ void sceneSetup(float windowWidth, float windowHeight)
 
 static void renderSceneCallBack()
 {
-	glEnable(GL_DEPTH_TEST);
-	glDepthFunc(GL_LESS);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	triangleA.render();
-	triangleB.render();
-	cubeFromObjFile.renderOBJ();
+	if(isLeftArrowDown == true)
+		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	if(isRightArrowDown == true)
+		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	if(isUpArrowDown == true)
+		cameraPos.y += cameraSpeed;
+	if (isDownArrowDown == true)
+		cameraPos.y -= cameraSpeed;
+
 
 	// only doing translation when required (i.e. when user presses t)
 	//if (isTranslate)
@@ -237,9 +275,9 @@ static void renderSceneCallBack()
 	//	objB.setTranslate(0, translateValue, 0);
 	//}
 
-	triangleA.setTranslate(posX, 0, 0);
+	triangleA.setTranslate(posX, 0, 0.0f);
 	triangleB.setTranslate(0, posY, 0);
-	cubeFromObjFile.setTranslate(0, 0, 0);
+	//cubeFromObjFile.setTranslate(0, 0, 0);
 
 	// only doing scaling when required (i.e. when user presses s)
 	//if (isScale)
@@ -250,21 +288,23 @@ static void renderSceneCallBack()
 	//	objB.setScale(scaleValue, scaleValue, 0);
 	//}
 
-	cubeFromObjFile.setScale(4, 2, 2);
+	//cubeFromObjFile.setScale(4, 2, 2);
 
 	static float angle = 10.0f;
 	angle += 1.0f;
-	triangleA.setRotation(angle, 1.0f, 0.0f, 0.0f);
-	triangleB.setRotation(angle, 0.0f, 0.0f, 1.0f);
-	cubeFromObjFile.setRotation(angle, 0.0f, 1.0f, 0.0f);
+	//triangleA.setRotation(angle, 1.0f, 0.0f, 0.0f);
+	//triangleB.setRotation(angle, 0.0f, 0.0f, 1.0f);
+	//cubeFromObjFile.setRotation(angle, 0.0f, 1.0f, 0.0f);
 
 	worldToViewTransform = lookAt(vec3(cameraPos.x, cameraPos.y, cameraPosZ), cameraPos + cameraFront, vec3(0.0f, 1.0f, 0.0f));
 
-	// Update the transforms in the shader program on the GPU
-	glUniformMatrix4fv(shaderA.gWorldToViewTransformLocation, 1, GL_FALSE, &worldToViewTransform[0][0]);
-	glUniformMatrix4fv(shaderA.gProjectionTransformLocation, 1, GL_FALSE, &projectionTransform[0][0]);
+	shaderA.updateShader(worldToViewTransform, projectionTransform);
 
 	Utilities::ToggleWireFrame(isWireframe);
+
+	triangleA.render();
+	triangleB.render();
+	//cubeFromObjFile.renderOBJ();
 
 	glutSwapBuffers();
 }
@@ -276,7 +316,7 @@ static void initializeGlutCallbacks()
 	glutMouseFunc(processMouse);
 	glutKeyboardFunc(processKeyboardDown);
 	glutKeyboardUpFunc(processKeyboardUp);
-	glutSpecialFunc(processKeyboardSpecialKeys);
+	//glutSpecialFunc(processKeyboardSpecialKeys);
 }
 
 int main(int argc, char** argv)
@@ -302,6 +342,9 @@ int main(int argc, char** argv)
 
 	// build (all) shaders	
 	shaderA.buildShader("Shaders/vertexShader.glsl", "Shaders/fragmentShader.glsl");
+
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
 
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 

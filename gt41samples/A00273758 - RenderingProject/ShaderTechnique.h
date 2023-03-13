@@ -32,8 +32,13 @@ public:
 	// enables the shader for the gameObject
 	void useShader();
 
+	void updateShader(mat4 worldToViewTransform, mat4 projectionTransform);
+
 private:
 	GLuint shaderProgram;
+
+	mat4 worldToViewTransform;
+	mat4 projectionTransform;
 
 };
 

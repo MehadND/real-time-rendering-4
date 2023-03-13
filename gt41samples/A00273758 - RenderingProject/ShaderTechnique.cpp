@@ -108,6 +108,13 @@ void ShaderTechnique::useShader()
 	assert(gProjectionTransformLocation != 0xFFFFFFFF);
 }
 
+void ShaderTechnique::updateShader(mat4 worldToViewTransform, mat4 projectionTransform)
+{
+	// Update the transforms in the shader program on the GPU
+	glUniformMatrix4fv(gWorldToViewTransformLocation, 1, GL_FALSE, &worldToViewTransform[0][0]);
+	glUniformMatrix4fv(gProjectionTransformLocation, 1, GL_FALSE, &projectionTransform[0][0]);
+}
+
 GLuint ShaderTechnique::getShaderProgram()
 {
 	return shaderProgram;
