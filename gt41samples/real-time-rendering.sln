@@ -31,6 +31,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "transformations", "transfor
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zbuffer", "zbuffer\zbuffer.vcxproj", "{974C2D7B-9987-487B-BBA4-F12797D2CF71}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lightinggpuhardcoded", "lightinggpuhardcoded\lightinggpuhardcoded.vcxproj", "{CB6885FE-11DA-4901-B8C0-C410C5A15716}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -151,6 +153,14 @@ Global
 		{974C2D7B-9987-487B-BBA4-F12797D2CF71}.Release|x64.Build.0 = Release|Win32
 		{974C2D7B-9987-487B-BBA4-F12797D2CF71}.Release|x86.ActiveCfg = Release|Win32
 		{974C2D7B-9987-487B-BBA4-F12797D2CF71}.Release|x86.Build.0 = Release|Win32
+		{CB6885FE-11DA-4901-B8C0-C410C5A15716}.Debug|x64.ActiveCfg = Debug|Win32
+		{CB6885FE-11DA-4901-B8C0-C410C5A15716}.Debug|x64.Build.0 = Debug|Win32
+		{CB6885FE-11DA-4901-B8C0-C410C5A15716}.Debug|x86.ActiveCfg = Debug|Win32
+		{CB6885FE-11DA-4901-B8C0-C410C5A15716}.Debug|x86.Build.0 = Debug|Win32
+		{CB6885FE-11DA-4901-B8C0-C410C5A15716}.Release|x64.ActiveCfg = Release|Win32
+		{CB6885FE-11DA-4901-B8C0-C410C5A15716}.Release|x64.Build.0 = Release|Win32
+		{CB6885FE-11DA-4901-B8C0-C410C5A15716}.Release|x86.ActiveCfg = Release|Win32
+		{CB6885FE-11DA-4901-B8C0-C410C5A15716}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
