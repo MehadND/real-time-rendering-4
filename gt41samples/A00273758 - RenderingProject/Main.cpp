@@ -13,9 +13,11 @@ const char* windowTitle = "A00273758 - Rendering Project";
 GameObject triangleA;
 GameObject triangleB;
 //GameObject cubeFromObjFile;
+GameObject cube;
 
 // some shaders
 ShaderTechnique shaderA;
+ShaderTechnique shaderB;
 
 // Camera stuff
 //Camera sceneCamera;
@@ -91,7 +93,7 @@ void processKeyboardDown(unsigned char key, int x, int y)
 			Utilities::InputDebugger("s");
 			break;*/
 
-		case 'i':
+		/*case 'i':
 			posY += 0.25f;
 			Utilities::InputDebugger("i");
 			break;
@@ -106,35 +108,33 @@ void processKeyboardDown(unsigned char key, int x, int y)
 		case 'l':
 			posX += 0.25f;
 			Utilities::InputDebugger("l");
-			break;
+			break;*/
 
-		case '4':
+		// left
+		case 'a':
 			//cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * 0.5f;
 			isLeftArrowDown = true;
-			Utilities::InputDebugger("4");
+			Utilities::InputDebugger("a");
 			break;
-		case '6':
+		// right
+		case 'd':
 			//cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * 0.5f;
 			isRightArrowDown = true;
-			Utilities::InputDebugger("6");
+			Utilities::InputDebugger("d");
 			break;
-		case '8':
+		// up
+		case 'w':
 			//cameraPos.y += 0.5f;
 			isUpArrowDown = true;
-			Utilities::InputDebugger("8");
+			Utilities::InputDebugger("w");
 			break;
-		case '2':
+		// dwon
+		case 's':
 			//cameraPos.y -= 0.5f;
 			isDownArrowDown = true;
-			Utilities::InputDebugger("2");
+			Utilities::InputDebugger("s");
 			break;
-		case '5':
-			cameraPosZ -= 0.25f;
-			Utilities::InputDebugger("5");
-			break;
-		case '0':
-			cameraPosZ += 0.25f;
-			Utilities::InputDebugger("0");
+		case 'q':
 			break;
 		default:
 			break;
@@ -158,23 +158,29 @@ void processKeyboardUp(unsigned char key, int x, int y)
 			Utilities::InputDebugger("esc");
 			cout << "\nApplication Quit...Success!" << endl;
 			break;
-		case '4':
+			// left
+		case 'a':
 			//cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * 0.5f;
 			isLeftArrowDown = false;
-			Utilities::InputDebugger("4");
+			Utilities::InputDebugger("a");
 			break;
-		case '6':
+			// right
+		case 'd':
 			//cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * 0.5f;
 			isRightArrowDown = false;
-			Utilities::InputDebugger("6");
+			Utilities::InputDebugger("d");
 			break;
-		case '8':
+			// up
+		case 'w':
+			//cameraPos.y += 0.5f;
 			isUpArrowDown = false;
-			Utilities::InputDebugger("8");
+			Utilities::InputDebugger("w");
 			break;
-		case '2':
+			// dwon
+		case 's':
+			//cameraPos.y -= 0.5f;
 			isDownArrowDown = false;
-			Utilities::InputDebugger("2");
+			Utilities::InputDebugger("s");
 			break;
 	}
 }
@@ -244,6 +250,45 @@ void createGameObjects()
 	//cubeFromObjFile.setPrimitiveMode(GL_TRIANGLES);
 	//cubeFromObjFile.createVBO(objVertz, 24);
 	//cubeFromObjFile.setShader(&shaderA);
+
+	const int totalVertices = 24;
+	Properties cube_Data[] = {
+		// Side 1 Front
+	   {vec3(-1.0f, 1.0f, 1.0f), vec4(1.0f, 0.0f, 0.0f, 1.0f), vec3(0.0f, 0.0f, 1.0f)},
+	   {vec3(1.0f, 1.0f, 1.0f),  vec4(1.0f, 0.0f, 0.0f, 1.0f), vec3(0.0f, 0.0f, 1.0f)},
+	   {vec3(1.0f,-1.0f, 1.0f),  vec4(1.0f, 0.0f, 0.0f, 1.0f), vec3(0.0f, 0.0f, 1.0f)},
+	   {vec3(-1.0f, 1.0f, 1.0f), vec4(1.0f, 0.0f, 0.0f, 1.0f), vec3(0.0f, 0.0f, 1.0f)},
+	   {vec3(1.0f,-1.0f, 1.0f),  vec4(1.0f, 0.0f, 0.0f, 1.0f), vec3(0.0f, 0.0f, 1.0f)},
+	   {vec3(-1.0f,-1.0f, 1.0f), vec4(1.0f, 0.0f, 0.0f, 1.0f), vec3(0.0f, 0.0f, 1.0f)},
+
+	   // Side 2 Right Side
+	   {vec3(1.0f, 1.0f, 1.0f), vec4(0.0f, 1.0f, 0.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f)},
+	   {vec3(1.0f, 1.0f,-1.0f), vec4(0.0f, 1.0f, 0.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f)},
+	   {vec3(1.0f,-1.0f,-1.0f), vec4(0.0f, 1.0f, 0.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f)},
+	   {vec3(1.0f, 1.0f, 1.0f), vec4(0.0f, 1.0f, 0.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f)},
+	   {vec3(1.0f,-1.0f,-1.0f), vec4(0.0f, 1.0f, 0.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f)},
+	   {vec3(1.0f,-1.0f, 1.0f), vec4(0.0f, 1.0f, 0.0f, 1.0f), vec3(1.0f, 0.0f, 0.0f)},
+
+	   // Side 3 Back
+	   {vec3(1.0f, 1.0f,-1.0f), vec4(0.0f, 0.0f, 1.0f, 1.0f), vec3(0.0f, 0.0f,-1.0f)},
+	   {vec3(-1.0f, 1.0f,-1.0f), vec4(0.0f, 0.0f, 1.0f, 1.0f), vec3(0.0f, 0.0f,-1.0f)},
+	   {vec3(-1.0f,-1.0f,-1.0f), vec4(0.0f, 0.0f, 1.0f, 1.0f), vec3(0.0f, 0.0f,-1.0f)},
+	   {vec3(1.0f, 1.0f,-1.0f), vec4(0.0f, 0.0f, 1.0f, 1.0f), vec3(0.0f, 0.0f,-1.0f)},
+	   {vec3(-1.0f,-1.0f,-1.0f), vec4(0.0f, 0.0f, 1.0f, 1.0f), vec3(0.0f, 0.0f,-1.0f)},
+	   {vec3(1.0f,-1.0f,-1.0f), vec4(0.0f, 0.0f, 1.0f, 1.0f), vec3(0.0f, 0.0f,-1.0f)},
+
+	   // Side 4 Left Side
+	   {vec3(-1.0f, 1.0f,-1.0f), vec4(1.0f, 1.0f, 0.0f, 1.0f), vec3(-1.0f, 0.0f, 0.0f)},
+	   {vec3(-1.0f, 1.0f, 1.0f), vec4(1.0f, 1.0f, 0.0f, 1.0f), vec3(-1.0f, 0.0f, 0.0f)},
+	   {vec3(-1.0f,-1.0f, 1.0f), vec4(1.0f, 1.0f, 0.0f, 1.0f), vec3(-1.0f, 0.0f, 0.0f)},
+	   {vec3(-1.0f, 1.0f,-1.0f), vec4(1.0f, 1.0f, 0.0f, 1.0f), vec3(-1.0f, 0.0f, 0.0f)},
+	   {vec3(-1.0f,-1.0f, 1.0f), vec4(1.0f, 1.0f, 0.0f, 1.0f), vec3(-1.0f, 0.0f, 0.0f)},
+	   {vec3(-1.0f,-1.0f,-1.0f), vec4(1.0f, 1.0f, 0.0f, 1.0f), vec3(-1.0f, 0.0f, 0.0f)}
+	};
+
+	cube.setPrimitiveMode(GL_TRIANGLES);
+	cube.createVertexBuffer(cube_Data, totalVertices);
+	cube.setShader(&shaderB);
 }
 
 void sceneSetup(float windowWidth, float windowHeight)
@@ -256,11 +301,11 @@ static void renderSceneCallBack()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	if(isLeftArrowDown == true)
+	if (isLeftArrowDown == true)
 		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	if(isRightArrowDown == true)
+	if (isRightArrowDown == true)
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	if(isUpArrowDown == true)
+	if (isUpArrowDown == true)
 		cameraPos.y += cameraSpeed;
 	if (isDownArrowDown == true)
 		cameraPos.y -= cameraSpeed;
@@ -295,16 +340,19 @@ static void renderSceneCallBack()
 	//triangleA.setRotation(angle, 1.0f, 0.0f, 0.0f);
 	//triangleB.setRotation(angle, 0.0f, 0.0f, 1.0f);
 	//cubeFromObjFile.setRotation(angle, 0.0f, 1.0f, 0.0f);
+	cube.setRotation(angle, 0.0f, 1.0f, 0.0f);
 
 	worldToViewTransform = lookAt(vec3(cameraPos.x, cameraPos.y, cameraPosZ), cameraPos + cameraFront, vec3(0.0f, 1.0f, 0.0f));
 
 	shaderA.updateShader(worldToViewTransform, projectionTransform);
+	shaderB.updateShader(worldToViewTransform, projectionTransform);
 
 	Utilities::ToggleWireFrame(isWireframe);
 
-	triangleA.render();
-	triangleB.render();
+	//triangleA.render();
+	//triangleB.render();
 	//cubeFromObjFile.renderOBJ();
+	cube.render();
 
 	glutSwapBuffers();
 }
@@ -342,9 +390,16 @@ int main(int argc, char** argv)
 
 	// build (all) shaders	
 	shaderA.buildShader("Shaders/vertexShader.glsl", "Shaders/fragmentShader.glsl");
+	shaderB.buildShader("Shaders/vertexshaderwithlight.glsl", "Shaders/fragmentshaderwithlight.glsl");
 
+	// Enable the z-buffer
 	glEnable(GL_DEPTH_TEST);
+	// GL_LESS - Passes if the incoming depth value is less than the stored depth value
 	glDepthFunc(GL_LESS);
+
+	//Enable backface culling
+	glEnable(GL_CULL_FACE);
+	glFrontFace(GL_CW);
 
 	glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
 
